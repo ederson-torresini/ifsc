@@ -1,0 +1,27 @@
+#!/bin/bash
+/hostlab/r0swi2-auto.sh
+
+# Enlace: interfaces físicas
+ip link set eth0 up
+ip link set eth1 up
+ip link set eth2 up
+ip link set eth3 up
+
+# Enlace: VLAN
+vconfig set_name_type DEV_PLUS_VID
+#
+vconfig add eth0 0020
+ip link set eth0.0020 up
+
+# Enlace: ponte
+brctl addbr vlan20
+brctl addif vlan20 eth0.0020
+brctl addif vlan20 eth1
+brctl addif vlan20 eth2
+brctl addif vlan20 eth3
+ip link set vlan20 up
+
+# Rede: endereçamento
+
+# Rede: roteamento
+

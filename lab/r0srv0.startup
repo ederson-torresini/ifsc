@@ -1,0 +1,16 @@
+#!/bin/bash
+/hostlab/r0srv0-auto.sh
+
+# Enlace: interfaces físicas
+ip link set eth0 up
+
+# Enlace: VLAN
+
+# Enlace: ponte
+
+# Rede: endereçamento
+ip -4 addr add 10.0.10.1/24 dev eth0
+
+# Rede: roteamento
+ip -4 route add 0.0.0.0/0 via 10.0.10.254
+
