@@ -34,7 +34,13 @@ brctl addif vlan20 eth1.0020
 brctl addif vlan20 eth2.0020
 ip link set vlan20 up
 
+# Enlace: *STP
+brctl setbridgeprio vlan10 0
+brctl stp vlan10 on
+#
+brctl setbridgeprio vlan20 0
+brctl stp vlan20 on
+
 # Rede: endereçamento
 
 # Rede: roteamento
-

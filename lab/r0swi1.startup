@@ -4,20 +4,28 @@
 # Enlace: interfaces físicas
 ip link set eth0 up
 ip link set eth1 up
+ip link set eth2 up
 
 # Enlace: VLAN
 vconfig set_name_type DEV_PLUS_VID
 #
 vconfig add eth0 0020
 ip link set eth0.0020 up
+#
+vconfig add eth2 0020
+ip link set eth2.0020 up
 
 # Enlace: ponte
 brctl addbr vlan20
 brctl addif vlan20 eth0.0020
 brctl addif vlan20 eth1
+brctl addif vlan20 eth2.0020
 ip link set vlan20 up
+
+# Enlace: *STP
+brctl setbridgeprio vlan20 4096
+brctl stp vlan20 on
 
 # Rede: endereçamento
 
 # Rede: roteamento
-

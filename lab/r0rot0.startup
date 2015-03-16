@@ -21,4 +21,3 @@ ip -4 addr add 10.0.20.254/24 dev eth0.0020
 
 # Rede: roteamento
 sysctl -w net.ipv4.conf.all.forwarding=1
-
