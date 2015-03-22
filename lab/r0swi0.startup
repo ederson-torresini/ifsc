@@ -36,9 +36,13 @@ ip link set vlan20 up
 
 # Enlace: *STP
 brctl setbridgeprio vlan10 0
+brctl setmaxage vlan10 6
+brctl setfd vlan10 5
 brctl stp vlan10 on
 #
-brctl setbridgeprio vlan20 0
+brctl setbridgeprio vlan20 4096
+brctl setmaxage vlan20 6
+brctl setfd vlan20 5
 brctl stp vlan20 on
 
 # Rede: endereçamento
