@@ -1,2 +1,2 @@
 # ifsc
-Projetos desenvolvidos em disciplinas dos cursos de Telecomunicações do IFSC câmpus São José.
+Projeto desenvolvido na disciplina de [Gerência de Rede](http://bit.ly/ger20151) do Curso Superior de Tecnologia em Sistemas de Telecomunicações do IFSC câmpus São José - primeiro semestre de 2015.
