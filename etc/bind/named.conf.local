@@ -1,0 +1,9 @@
+zone "gerencia.local" {
+	type master;
+	file "/etc/bind/gerencia.local";
+};
+
+zone "40.31.172.in-addr.arpa" {
+	type master;
+	file "/etc/bind/40.31.172.in-addr.arpa";
+};

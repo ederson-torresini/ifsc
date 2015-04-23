@@ -1,0 +1,13 @@
+$TTL	86400
+@	IN	SOA	ns1.gerencia.local.	dns-admin.gerencia.local.	(
+	2015040901 ; serial
+	1d ; refresh
+	1h ; retry
+	1w ; expire
+	1d ; negative cache ttl
+)
+@	IN	NS	ns1.gerencia.local.
+
+ns1	IN	A	172.31.40.254
+roteador	IN	CNAME	ns1.gerencia.local.
+ftp	IN	A	172.31.40.12
