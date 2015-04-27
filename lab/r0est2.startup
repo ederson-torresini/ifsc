@@ -4,9 +4,13 @@
 # Enlace: interfaces físicas
 ip link set eth0 up
 
+# Enlace: agregação de enlace
+
 # Enlace: VLAN
 
 # Enlace: ponte
+
+# Enlace: *STP
 
 # Rede: endereçamento
 ip -4 addr add 10.0.20.102/24 dev eth0

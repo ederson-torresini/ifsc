@@ -3,13 +3,27 @@
 
 # Enlace: interfaces físicas
 ip link set eth0 up
+ip link set eth1 up
+ip link set eth2 up
+ip link set eth3 up
+
+# Enlace: agregação de enlace
+modprobe bonding max_bonds=1 mode=802.3ad lacp_rate=fast xmit_hash_policy=layer2 miimon=1
+#
+ip link set bond0 up
+ifenslave bond0 eth0
+ifenslave bond0 eth1
+ifenslave bond0 eth2
+ifenslave bond0 eth3
 
 # Enlace: VLAN
 
 # Enlace: ponte
 
+# Enlace: *STP
+
 # Rede: endereçamento
-ip -4 addr add 10.0.20.1/24 dev eth0
+ip -4 addr add 10.0.20.1/24 dev bond0
 
 # Rede: roteamento
 ip -4 route add 0.0.0.0/0 via 10.0.20.254

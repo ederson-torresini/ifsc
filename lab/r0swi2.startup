@@ -7,23 +7,36 @@ ip link set eth1 up
 ip link set eth2 up
 ip link set eth3 up
 ip link set eth4 up
+ip link set eth5 up
+ip link set eth6 up
+
+# Enlace: agregação de enlace
+modprobe bonding max_bonds=2 mode=802.3ad lacp_rate=fast xmit_hash_policy=layer2 miimon=1
+#
+ip link set bond0 up
+ifenslave bond0 eth0
+ifenslave bond0 eth5
+#
+ip link set bond1 up
+ifenslave bond1 eth4
+ifenslave bond1 eth6
 
 # Enlace: VLAN
 vconfig set_name_type DEV_PLUS_VID
 #
-vconfig add eth0 0020
-ip link set eth0.0020 up
+vconfig add bond0 0020
+ip link set bond0.0020 up
 #
-vconfig add eth4 0020
-ip link set eth4.0020 up
+vconfig add bond1 0020
+ip link set bond1.0020 up
 
 # Enlace: ponte
 brctl addbr vlan20
-brctl addif vlan20 eth0.0020
+brctl addif vlan20 bond0.0020
 brctl addif vlan20 eth1
 brctl addif vlan20 eth2
 brctl addif vlan20 eth3
-brctl addif vlan20 eth4.0020
+brctl addif vlan20 bond1.0020
 ip link set vlan20 up
 
 # Enlace: *STP
