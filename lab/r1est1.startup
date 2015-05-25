@@ -1,0 +1,19 @@
+#!/bin/bash
+/hostlab/r1est1-auto.sh
+
+# Enlace: interfaces físicas
+ip link set eth0 up
+
+# Enlace: agregação de enlace
+
+# Enlace: VLAN
+
+# Enlace: ponte
+
+# Enlace: *STP
+
+# Rede: endereçamento
+ip -4 addr add 10.1.20.101/24 dev eth0
+
+# Rede: roteamento
+ip -4 route add 0.0.0.0/0 via 10.1.20.254

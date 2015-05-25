@@ -1,0 +1,45 @@
+#!/bin/bash
+/hostlab/r1swi0-auto.sh
+
+# Enlace: interfaces físicas
+ip link set eth0 up
+ip link set eth1 up
+ip link set eth2 up
+ip link set eth3 up
+ip link set eth4 up
+ip link set eth5 up
+
+# Enlace: agregação de enlace
+modprobe bonding max_bonds=2 mode=802.3ad lacp_rate=fast xmit_hash_policy=layer2 miimon=1
+#
+ip link set bond0 up
+ifenslave bond0 eth0
+ifenslave bond0 eth1
+#
+ip link set bond1 up
+ifenslave bond1 eth2
+ifenslave bond1 eth3
+
+# Enlace: VLAN
+vconfig set_name_type DEV_PLUS_VID
+#
+vconfig add bond0 0120
+ip link set bond0.0120 up
+
+# Enlace: ponte
+brctl addbr vlan120
+brctl addif vlan120 bond0.0120
+brctl addif vlan120 bond1
+brctl addif vlan120 eth4
+brctl addif vlan120 eth5
+ip link set vlan120 up
+
+# Enlace: *STP
+brctl setbridgeprio vlan120 0
+brctl setmaxage vlan120 6
+brctl setfd vlan120 5
+brctl stp vlan120 on
+
+# Rede: endereçamento
+
+# Rede: roteamento
