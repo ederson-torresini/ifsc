@@ -1,0 +1,38 @@
+#!/bin/bash
+/hostlab/lsr0-auto.sh
+
+# Enlace: interfaces físicas
+ip link set eth0 up
+ip link set eth1 up
+
+# Enlace: agregação de enlace
+
+# Enlace: VLAN
+
+# Enlace: ponte
+
+# Enlace: *STP
+
+# Rede: endereçamento
+ip -4 addr add 192.168.0.1/30 dev eth0
+ip -4 addr add 192.168.0.5/30 dev eth1
+
+# MPLS
+modprobe mpls4
+#
+# MPLS: Labelspace
+mpls labelspace set dev eth0 labelspace 0
+mpls labelspace set dev eth1 labelspace 0
+#
+# MPLS: ILM
+mpls ilm add label gen 1000 labelspace 0
+#
+# MPLS: FEC
+#
+# MPLS: NHLFE
+mpls nhlfe add key 0 instructions push gen 2000 nexthop eth1 ipv4 192.168.0.6
+#
+# MPLS: XC
+mpls xc add ilm_label gen 1000 ilm_labelspace 0 nhlfe_key 0x2
+
+# Rede: roteamento
