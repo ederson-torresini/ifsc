@@ -7,7 +7,13 @@ $TTL	86400
 	1d ; negative cache ttl
 )
 @	IN	NS	ns1.gerencia.local.
+@	IN	MX	0	mail.gerencia.local.
 
-ns1	IN	A	172.31.40.254
+ns1			IN	A		172.31.40.254
 roteador	IN	CNAME	ns1.gerencia.local.
-ftp	IN	A	172.31.40.12
+www			IN	A		172.31.40.254
+blog 		IN	CNAME	www.gerencia.local.
+webmail		IN	CNAME	www.gerencia.local.
+mail		IN	A		172.31.40.254
+smtp		IN	CNAME	mail.gerencia.local.
+imap		IN	CNAME	mail.gerencia.local.
