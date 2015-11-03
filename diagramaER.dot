@@ -1,0 +1,51 @@
+graph diagrama {
+  // Entidades
+  Central [shape=record]
+  Chip [shape=record]
+  ERB [shape=record]
+  Número [shape=record]
+  Operadora [shape=record]
+  Pessoa [shape=record]
+  Plano [shape=record]
+  Telefone [shape=record]
+
+  // Relacionamentos
+  Associação [shape=diamond]
+  Backhaul [shape=diamond]
+  Cadastro [shape=diamond]
+  Conexão [shape=diamond]
+  Contrato [shape=diamond]
+  Oferta [shape=diamond]
+  Patrimônio [shape=diamond]
+  Propriedade [shape=diamond]
+  Roaming [shape=diamond]
+  TrocaDeTráfego [shape=diamond]
+  Tronco [shape=diamond]
+  Vínculo [shape=diamond]
+
+  // Ligações
+  Backhaul -- ERB
+  Central -- Patrimônio
+  Central -- Tronco
+  Chip -- Associação
+  Chip -- Roaming
+  Chip -- Vínculo
+  ERB -- Backhaul
+  ERB -- Conexão
+  ERB -- Roaming
+  Número -- Cadastro
+  Número -- Vínculo
+  Operadora -- Cadastro
+  Operadora -- Conexão
+  Operadora -- Contrato
+  Operadora -- Oferta
+  Operadora -- Patrimônio
+  Operadora -- TrocaDeTráfego
+  Pessoa -- Contrato
+  Pessoa -- Propriedade
+  Plano -- Oferta
+  Telefone -- Associação
+  Telefone -- Propriedade
+  TrocaDeTráfego -- Operadora
+  Tronco -- Central
+}
