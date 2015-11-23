@@ -1,0 +1,28 @@
+digraph modeloRelacional {
+  layout = neato
+  overlap = false
+
+  // Tabelas
+  Central [shape=record,label="<0>Central|<1>*código|<2>**operadora"]
+  Chip [shape=record,label="<0>Chip|<1>*ICCID|<2>**registro|<3>vínculo|<4>associação"]
+  Contrato [shape=record,label="<0>Contrato|<1>*número|<2>**contratante|<3>**contratado|<4>**plano|<5>endereçoCobrança"]
+  ERB [shape=record,label="<0>ERB|<1>*id|<2>**operadora|<3>QoS|<4>limite|<5>área|<6>longitude|<7>latitude"]
+  Número [shape=record,label="<0>Número|<1>**número|<2>**operadora|<3>crédito"]
+  Operadora [shape=record,label="<0>Operadora|<1>*CNPJ|<2>nome"]
+  Pessoa [shape=record,label="<0>Pessoa|<1>*tipoDocumento|<2>*documento|<3>nome|<4>endereço"]
+  Plano [shape=record,label="<0>Plano|<1>*código|<2>**operadora|<3>vigência|<4>fidelização|<5>tipo|<6>cadência|<7>custoCadência"]
+  Telefone [shape=record,label="<0>Telefone|<1>*númeroSerial|<2>**proprietário|<3>IMEI"]
+
+  # Integridade
+  Central:2 -> Operadora:1
+  Chip:2 -> ERB:1
+  Chip:3 -> Número:1
+  Chip:4 -> Telefone:1
+  Contrato:2 -> Pessoa:1
+  Contrato:3 -> Operadora:1
+  Contrato:4 -> Plano:1
+  ERB:2 -> Operadora:1
+  Número:2 ->Operadora:1
+  Plano:2 -> Operadora:1
+  Telefone:2 -> Pessoa:1
+}

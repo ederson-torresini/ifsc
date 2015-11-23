@@ -1,4 +1,4 @@
-graph diagrama {
+graph diagramaER {
   layout = neato
 
   // Entidades
@@ -20,7 +20,7 @@ graph diagrama {
   Oferta [shape=diamond]
   Patrimônio [shape=diamond]
   Propriedade [shape=diamond]
-  Roaming [shape=diamond]
+  Registro [shape=diamond]
   TrocaDeTráfego [shape=diamond]
   Tronco [shape=diamond]
   Vínculo [shape=diamond]
@@ -30,11 +30,11 @@ graph diagrama {
   Central -- Patrimônio [label="N"]
   Central -- Tronco [label="1"]
   Chip -- Associação [label="0..N"]
-  Chip -- Roaming [label="0..N"]
+  Chip -- Registro [label="0..N"]
   Chip -- Vínculo [label="1"]
   ERB -- Backhaul [label="1"]
   ERB -- Conexão [label="N"]
-  ERB -- Roaming [label="1"]
+  ERB -- Registro [label="1"]
   Número -- Cadastro [label="N"]
   Número -- Vínculo [label="1"]
   Operadora -- Cadastro [label="1"]

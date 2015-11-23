@@ -1,0 +1,28 @@
+Central (*código, **operadora, região, capacidadeDeLigações)
+operadora referencia Operadora
+
+Chip (*ICCID, **registro, **vínculo, **associação)
+registro referencia ERB
+vínculo referencia Número
+associação referencia Telefone
+
+Contrato (*número, **contratante, **contratado, **plano, endereçoCobrança)
+contratante referencia Pessoa
+contratado referencia Operadora
+plano referencia Plano
+
+ERB (*id, **operadora, QoS, limite, área, longitude, latitude)
+operadora referencia Operadora
+
+Número (*número, **operadora, crédito)
+operadora referencia Operadora
+
+Operadora (*cnpj, nome)
+
+Pessoa (*tipoDocumento, *documento, nome, endereço)
+
+Plano (*código, **operadora, vigência, fidelização, tipo, cadência, custoCadência)
+operadora referencia Operadora
+
+Telefone (*númeroSerial, **proprietário, IMEI)
+proprietário referencia Pessoa
