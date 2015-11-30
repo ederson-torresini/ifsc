@@ -9,7 +9,7 @@ graph diagramaER {
   Operadora [shape=record]
   Pessoa [shape=record]
   Plano [shape=record]
-  Telefone [shape=record]
+  IMEI [shape=record]
 
   // Relacionamentos
   Associação [shape=diamond]
@@ -46,8 +46,8 @@ graph diagramaER {
   Pessoa -- Contrato [label="0..N"]
   Pessoa -- Propriedade [label="1"]
   Plano -- Oferta [label="N"]
-  Telefone -- Associação [label="1"]
-  Telefone -- Propriedade [label="0..N"]
+  IMEI -- Associação [label="1"]
+  IMEI -- Propriedade [label="0..N"]
   TrocaDeTráfego -- Operadora [label="0..N"]
   Tronco -- Central [label="0..N"]
 }
