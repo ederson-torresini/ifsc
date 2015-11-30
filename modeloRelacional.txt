@@ -4,7 +4,7 @@ operadora referencia Operadora
 Chip (*ICCID, **registro, **vínculo, **associação)
 registro referencia ERB
 vínculo referencia Número
-associação referencia Telefone
+associação referencia IMEI
 
 Contrato (*número, **contratante, **contratado, **plano, endereçoCobrança)
 contratante referencia Pessoa
@@ -19,10 +19,10 @@ operadora referencia Operadora
 
 Operadora (*cnpj, nome)
 
-Pessoa (*tipoDocumento, *documento, nome, endereço)
+Pessoa (*id, documento, nome, endereço)
 
 Plano (*código, **operadora, vigência, fidelização, tipo, cadência, custoCadência)
 operadora referencia Operadora
 
-Telefone (*númeroSerial, **proprietário, IMEI)
+IMEI (*número, **proprietário, númeroSerial)
 proprietário referencia Pessoa
