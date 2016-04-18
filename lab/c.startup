@@ -1,0 +1,42 @@
+#!/bin/bash
+
+/hostlab/c-auto.sh
+
+# Enlaces
+ip link set eth0 up
+ip link set eth1 up
+
+# IPv4: endereçamento
+ip address add 10.0.0.1/24 dev eth0
+ip address add 10.1.0.1/24 dev eth1
+
+# IPv4: roteamento
+sysctl -w net.ipv4.conf.all.forwarding=1
+
+# IPv6: endereçamento
+ip address add FC00::1/64 dev eth0
+ip address add FC00:1::1/64 dev eth0
+
+# IPv6: roteamento
+sysctl -w net.ipv6.conf.all.forwarding=1
+
+# IPv6: Router Advertisement
+cat > /etc/radvd.conf <<FIM
+interface eth0 {
+  AdvSendAdvert on;
+  prefix FC00::/64 {
+    AdvOnLink on;
+    AdvAutonomous on;
+    AdvRouterAddr on;
+  };
+};
+interface eth1 {
+  AdvSendAdvert on;
+  prefix FC00:1::/64 {
+    AdvOnLink on;
+    AdvAutonomous on;
+    AdvRouterAddr on;
+  };
+};
+FIM
+radvd -C /etc/radvd.conf
