@@ -1,0 +1,9 @@
+graph rco20161 {
+
+  a [shape=Mrecord, label="<0>A|<1>eth0"]
+  b [shape=Mrecord, label="<0>B|<1>eth0"]
+  c [shape=Mrecord, label="<0>C|<1>eth0|<2>eth1"]
+
+  c:1 -- a:1
+  c:2 -- b:1
+}
