@@ -1,12 +1,44 @@
 #!/bin/bash
+/hostlab/a-auto.sh
 
-/hostlab/b-auto.sh
-
-# Enlaces
+# Enlace: Ethernet
 ip link set eth0 up
+ip link set eth1 up
+ip link set eth2 up
 
 # IPv4: endereçamento
-ip address add 10.1.0.2/24 dev eth0
+ip -4 address add 10.100.0.2/30 dev eth0
+ip -4 address add 10.100.0.9/30 dev eth1
+ip -4 address add 10.1.0.1/24 dev eth2
 
 # IPv4: roteamento
-ip route add 0.0.0.0/0 via 10.1.0.1
+sysctl -w net.ipv4.conf.all.forwarding=1
+ip -4 route add 0.0.0.0/0 via 10.100.0.1
+
+# IPv6: endereçamento
+# https://tools.ietf.org/html/rfc2460
+# https://tools.ietf.org/html/rfc4291
+# https://tools.ietf.org/html/rfc6164
+ip -6 address add FC00:100::3/127 dev eth0
+ip -6 address add FC00:100::8/127 dev eth1
+ip -6 address add FC00:1::1/64 dev eth2
+
+# IPv6: roteamento
+sysctl -w net.ipv6.conf.all.forwarding=1
+ip -6 route add ::/0 via FC00:100::2
+
+# IPv6: NDP
+# https://tools.ietf.org/html/rfc4861
+cat > /etc/radvd.conf <<FIM
+interface eth2 {
+    AdvSendAdvert on;
+    MinRtrAdvInterval 3;
+    MaxRtrAdvInterval 10;
+    prefix FC00:1::/64 {
+        AdvOnLink on;
+        AdvAutonomous on;
+        AdvRouterAddr on;
+    };
+};
+FIM
+radvd -C /etc/radvd.conf

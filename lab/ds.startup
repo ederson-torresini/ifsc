@@ -1,0 +1,12 @@
+#!/bin/bash
+/hostlab/ds-auto.sh
+
+# Enlace: Ethernet
+ip link set eth0 up
+ip link set eth1 up
+ip link set eth2 up
+
+# Enlace: ponte/bridge
+brctl addbr br0
+ip link set br0 up
+brctl addif br0 eth0 eth1 eth2
