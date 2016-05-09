@@ -1,0 +1,11 @@
+#!/bin/bash
+/hostlab/e0-auto.sh
+
+# Enlace: Ethernet
+ip link set eth0 up
+
+# IPv4: endereçamento
+ip -4 address add 10.4.0.2/24 dev eth0
+
+# IPv4: roteamento
+ip -4 route add 0.0.0.0/0 via 10.4.0.1
