@@ -2,14 +2,14 @@ aluno(*cpf, nome)
 
 curso(*código, nome)
 
-disciplina(*código, fase, CH, CHmínima, **grade, **leciona)
-grade referencia curso(código)
-leciona referencia professor(siape)
+disciplina(*código, fase, CH, CHmínima, **cursoCodigo, **professorSiape)
+cursoCodigo referencia curso(código)
+professorSiape referencia professor(siape)
 
 horário(*turno, *aula, *dia, *semanaAB, ***disciplina, *semestre)
 disciplina referencia disciplina(código)
 
-matrícula(***aluno, ***curso, disciplina)
+matrícula(***aluno, ***curso, matrícula)
 aluno referencia aluno(cpf)
 curso referencia curso(código)
 
@@ -17,8 +17,8 @@ préRequisito(***disciplina, ***PréRequisito)
 disciplina referencia disciplina(código)
 préRequisito referencia disciplina(código)
 
-processoDeMatrícula(***aluno, ***disciplina, concluído, semestre)
-aluno referencia aluno(cpf)
+processoDeMatricula(***matricula, ***disciplina, concluido, semestre)
+matricula referencia matrícula(aluno, curso)
 disciplina referencia disciplina(código)
 
 professor(*siape, nome)
