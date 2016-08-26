@@ -1,66 +1,48 @@
 graph diagramaER {
-  layout = neato
+    layout = neato
 
-  // Entidades
-  Aluno [shape=record]
-  Curso  [shape=record]
-  Disciplina [shape=record]
-  Horário [shape=record]
-  Professor [shape=record]
+    // Sujeitos
+    aluno [shape=record]
+    matrícula [shape=record]
+    disciplina [shape=record]
+    pedidoDeMatrícula [shape=record]
+    curso [shape=record]
+    câmpus [shape=record]
+    currículo [shape=record]
+    professor [shape=record]
+    semestre [shape=record]
+    horário [shape=record]
+    préRequisito [shape=record]
 
-  // Atributos
-  Aula [shape=plaintext]
-  CH [shape=plaintext]
-  CHmínima [shape=plaintext]
-  CódigoCurso [shape=plaintext,label="Código"]
-  CódigoDisciplina [shape=plaintext,label="Código"]
-  CPF [shape=plaintext]
-  Dia [shape=plaintext]
-  Fase [shape=plaintext]
-  Matrícula [shape=plaintext]
-  NomeAluno [shape=plaintext,label="Nome"]
-  NomeCurso [shape=plaintext,label="Nome"]
-  NomeProfessor [shape=plaintext,label="Nome"]
-  SemanaAB [shape=plaintext,label="Semana AB"]
-  Semestre [shape=plaintext]
-  SIAPE [shape=plaintext]
-  Turno [shape=plaintext]
+    // Verbos
+    tem [shape=diamond]
+    cursou [shape=diamond]
+    pede [shape=diamond]
+    faz [shape=diamond]
+    vinculado [shape=diamond]
+    pertence [shape=diamond]
+    possui [shape=diamond]
+    lotado [shape=diamond]
+    agrega [shape=diamond]
+    ministrado [shape=diamond]
+    oferta [shape=diamond]
+    contém [shape=diamond]
+    exige [shape=diamond]
+    disponibiliza [shape=diamond]
 
-  //Relacionamentos
-  Calendário [shape=diamond]
-  Estuda [shape=diamond]
-  Grade [shape=diamond]
-  Leciona [shape=diamond]
-  PréRequisito [shape=diamond]
-  ProcessoDeMatrícula [shape=diamond]
-
-  //Ligações
-  Aluno -- CPF
-  Aluno -- Estuda [label="0..N"]
-  Aluno -- NomeAluno
-  Aluno -- ProcessoDeMatrícula [label="0..N"]
-  Curso -- CódigoCurso
-  Curso -- Estuda [label="0..N"]
-  Curso -- Grade [label="1"]
-  Curso -- NomeCurso
-  Disciplina -- Calendário [label="1"]
-  Disciplina -- CH
-  Disciplina -- CHmínima
-  Disciplina -- CódigoDisciplina
-  Disciplina -- Fase
-  Disciplina -- Grade [label="0..N"]
-  Disciplina -- Leciona [label="0..N"]
-  Disciplina -- PréRequisito [label="0..N"]
-  Disciplina -- PréRequisito [label="1"]
-  Disciplina -- ProcessoDeMatrícula [label="0..N"]
-  Estuda -- Matrícula
-  Horário -- Aula
-  Horário -- Calendário [label="0..N"]
-  Horário -- Dia
-  Horário -- SemanaAB
-  Horário -- Semestre
-  Horário -- Turno
-  Professor -- Leciona [label="0..1"]
-  Professor -- NomeProfessor
-  Professor -- SIAPE
+    // Ligações
+    aluno -- tem -- matrícula
+    matrícula -- cursou -- disciplina
+    matrícula -- faz -- pedidoDeMatrícula
+    matrícula -- vinculado -- curso
+    pedidoDeMatrícula -- pede -- disciplina
+    curso -- pertence -- câmpus
+    curso -- possui -- currículo
+    professor -- lotado -- câmpus
+    disciplina -- ministrado -- professor
+    currículo -- agrega -- disciplina
+    semestre -- oferta -- disciplina
+    disciplina -- contém -- horário
+    semestre -- disponibiliza -- horário
+    disciplina -- exige -- préRequisito
 }
