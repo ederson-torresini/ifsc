@@ -1,38 +1,38 @@
-Aluno (*id, documento, nome, telefone, email)
+Aluno (*documento, nome, telefone, email)
 
-Curso(*id, número, CHmín, CHmáx, nome, **câmpus, **currículo)
-câmpus  referencia Câmpus(nome)
-currículo referencia Currículo(implantação, disciplina)
-
-Câmpus(*id, nome)
-
-Professor(*documento, nome, **câmpus)
+Curso(*número, CHmín, CHmáx, nome, câmpus)
 câmpus referencia Câmpus(nome)
 
-Matrícula(*id, número, **aluno, **curso)
+Câmpus(nome)
+
+Professor(*documento, nome, câmpus)
+câmpus referencia Câmpus(nome)
+
+Matrícula(*número, aluno, curso)
 aluno referencia Aluno(documento)
 curso referencia Curso(número)
 
-DisciplinasCursadas(***matrícula, ***disciplina)
+DisciplinasCursadas(*matrícula, *disciplina)
 matrícula referencia Matrícula(número)
 disciplina referencia Disciplina(código)
 
-Horário(*horaInício, *horaTérmino, *dia da semana, *Semana A/B, ***disciplina, *semestre, *ano)
+Horário(*horaInício, *horaTérmino, *dia da semana, *Semana A/B, *disciplina, *semestre, *ano)
 disciplina referencia disciplina(código)
 
-PedidoDeMatrícula(*sessão, *tipo, **matrícula, ***disciplina)
+PedidoDeMatrícula(*sessão, *tipo, *matrícula, *disciplina)
 matrícula referencia Matrícula(numero)
 disciplina referencia disciplina(código)
 
-DisciplinasMinistradas(***professor, **disciplina)
+DisciplinasMinistradas(*professor, *disciplina)
 disciplina referencia Disciplina(código)
 professor referencia Professor(documento)
 
-Currículo(*id, implantação, **disciplina)
+Currículo(*curso, *implantação, *disciplina)
 disciplina referencia Disciplina(código)
+curso referencia Curso(id)
 
-Disciplina(*id, código, nome, CH, CHmín)
+Disciplina(*código, nome, CH, CHmín)
 
-Pré-requisito(obrigatório, eixo, ***disciplina, ***pré-requisito)
+Pré-requisito(obrigatório, eixo, *disciplina, *pré-requisito)
 disciplina referencia Disciplina(código)
 pré-requisito referencia Disciplina(código)
