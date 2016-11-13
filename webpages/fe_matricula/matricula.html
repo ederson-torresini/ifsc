@@ -1,0 +1,369 @@
+﻿<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+		<script src="sj.js"></script>
+		<script src="jquery.js"></script>
+		<script>
+			$(document).ready(function() {
+
+				var items = [["cal1", "a1,a6"], ["fsc1", "a2,a3"], ["gal", "a18,a17"], ["des", "a16,a16"], ["eli", "a18,b18"], ["log", "a4,b4"], ["pji1", "a5,b5"]];
+				console.log(JSON.stringify(items));
+
+				jQuery(".ck_materia").click(function() {
+					var contentPanelId = jQuery(this).attr("id");
+					console.log(contentPanelId);
+					if ($("#" + contentPanelId).is(':checked')) {
+						var retHora = retornaHora(items, contentPanelId);
+						var index = retHora.indexOf(",");
+						var h1 = retHora.substr(0, index);
+						var h2 = retHora.substr(index + 1);
+						$("#" + h1).text(contentPanelId);
+						$("#" + h2).text(contentPanelId);
+					} else {
+						var retHora = retornaHora(items, contentPanelId);
+						var index = retHora.indexOf(",");
+						var h1 = retHora.substr(0, index);
+						var h2 = retHora.substr(index + 1);
+						$("#" + h1).text("");
+						$("#" + h2).text("");
+					}
+				});
+
+				$(".ck_materia").mouseenter(function() {
+					var contentPanelId = jQuery(this).attr("id");
+					var retHora = retornaHora(items, contentPanelId);
+					var index = retHora.indexOf(",");
+					var h1 = retHora.substr(0, index);
+					var h2 = retHora.substr(index + 1);
+					$("#" + h1).text(contentPanelId);
+					$("#" + h2).text(contentPanelId);
+				}).mouseleave(function() {
+					var contentPanelId = jQuery(this).attr("id");
+					var retHora = retornaHora(items, contentPanelId);
+					var index = retHora.indexOf(",");
+					var h1 = retHora.substr(0, index);
+					var h2 = retHora.substr(index + 1);
+					$("#" + h1).text("");
+					$("#" + h2).text("");
+				});
+
+				console.log(retornaHora(items, "fsc1"));
+				function retornaHora(horarios, disciplina) {
+					var arrayLength = horarios.length;
+					for (var i = 0; i < arrayLength; i++) {
+						if (horarios[i][0] == disciplina) {
+							return horarios[i][1];
+						}
+					}
+				}
+
+			});
+		</script>
+	</head>
+	<body>
+		<ul class="tab">
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '1')" id="defaultOpen">1&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '2')">2&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '3')">3&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '4')">4&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '5')">5&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '6')">6&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '7')">7&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '8')">8&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '9')">9&ordm;</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '10')">10&ordm;</a>
+			</li>
+		</ul>
+
+		<div id="1" class="tabcontent">
+			<h3>1&ordm; Semestre</h3>
+			<p>
+				<table>
+					<tr>
+						<input type="checkbox" class="ck_materia" id="des" value="Bike">
+						DESENHO TÉCNICO
+					</tr>
+					<tr>
+						<input type="checkbox" class="ck_materia"  id="cal1" value="CAL I">
+						CÁLCULO I
+					</tr>
+					<tr>
+						<input type="checkbox"  class="ck_materia" id="fsc1" value="CAL I">
+						FÍSICA I
+					</tr>
+					<tr>
+						<input type="checkbox"  class="ck_materia" id="eli" value="CAL I">
+						ELETRICIDADE E INSTRUMENTAÇAO
+					</tr>
+					<tr>
+						<input type="checkbox" class="ck_materia"  id="gal" value="CAL I">
+						GEOMETRIA ANALITICA
+					</tr>
+					<tr>
+						<input type="checkbox" class="ck_materia"  id="log" value="CAL I">
+						LOGICA
+					</tr>
+					<tr>
+						<input type="checkbox"  class="ck_materia" id="pji1" value="CAL I">
+						PROJETO INTEGRADOR I
+					</tr>
+				</table>
+			</p>
+		</div>
+
+		<div id="2" class="tabcontent">
+			<h3>2&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+
+		<div id="3" class="tabcontent">
+			<h3>2&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="4" class="tabcontent">
+			<h3>4&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="5" class="tabcontent">
+			<h3>5&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="6" class="tabcontent">
+			<h3>6&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="7" class="tabcontent">
+			<h3>7&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="8" class="tabcontent">
+			<h3>8&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="9" class="tabcontent">
+			<h3>9&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+		<div id="10" class="tabcontent">
+			<h3>10&ordm; Semestre</h3>
+			<table>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					DESENHO TÉCNICO
+				</tr>
+				<tr>
+					<input type="checkbox" name="vehicle" value="Bike">
+					CÁLCULO I
+				</tr>
+				<tr></tr>
+			</table>
+		</div>
+
+		<div class="table_container">
+			<table class="table_sem_b">
+				<tr>
+					<th>Semana A</th>
+					<th>Segunda</th>
+					<th>Terça</th>
+					<th>Quarta</th>
+					<th>Quinta</th>
+					<th>Sexta</th>
+				</tr>
+				<tr>
+					<td>7:30</td>
+					<td id="a1"></td>
+					<td id="a2"></td>
+					<td id="a3"></td>
+					<td id="a4"></td>
+					<td id="a5"></td>
+				</tr>
+				<tr>
+					<td>9:40</td>
+					<td id="a6"></td>
+					<td id="a7"></td>
+					<td id="a8"></td>
+					<td id="a9"></td>
+					<td id="a10"></td>
+				</tr>
+				<tr>
+					<td>13:30</td>
+					<td id="a11"></td>
+					<td id="a12"></td>
+					<td id="a13"></td>
+					<td id="a14"></td>
+					<td id="a15"></td>
+				</tr>
+				<tr>
+					<td>15:40</td>
+					<td id="a16"></td>
+					<td id="a17"></td>
+					<td id="a18"></td>
+					<td id="a19"></td>
+					<td id="a20"></td>
+				</tr>
+				<tr>
+
+				</tr>
+				<tr>
+
+				</tr>
+			</table>
+			<table class="table_sem_b">
+				<tr>
+					<th>Semana B</th>
+					<th>Segunda</th>
+					<th>Terça</th>
+					<th>Quarta</th>
+					<th>Quinta</th>
+					<th>Sexta</th>
+				</tr>
+				<tr>
+					<td>7:30</td>
+					<td id="b1"></td>
+					<td id="b2"></td>
+					<td id="b3"></td>
+					<td id="b4"></td>
+					<td id="b5"></td>
+				</tr>
+				<tr>
+					<td>9:40</td>
+					<td id="b6"></td>
+					<td id="b7"></td>
+					<td id="b8"></td>
+					<td id="b9"></td>
+					<td id="b10"></td>
+				</tr>
+				<tr>
+					<td>13:30</td>
+					<td id="b11"></td>
+					<td id="b12"></td>
+					<td id="b13"></td>
+					<td id="b14"></td>
+					<td id="b15"></td>
+				</tr>
+				<tr>
+					<td>15:40</td>
+					<td id="b16"></td>
+					<td id="b17"></td>
+					<td id="b18"></td>
+					<td id="b19"></td>
+					<td id="b20"></td>
+				</tr>
+				<tr>
+
+				</tr>
+				<tr>
+
+				</tr>
+			</table>
+			<div>
+				<button type="button" class="btn">
+					Enviar
+				</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		document.getElementById("defaultOpen").click();
+	</script>
+</html>
