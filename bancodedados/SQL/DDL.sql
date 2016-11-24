@@ -2,7 +2,6 @@
 
 use bcd;
 
-
 DROP TABLE IF EXISTS horario;
 DROP TABLE IF EXISTS semestre;
 DROP TABLE IF EXISTS MinistradoresDasDisciplinas;
@@ -111,13 +110,9 @@ CREATE TABLE IF NOT EXISTS curriculo(
 	constraint fk_curriculo_curso_curso_id
     	foreign key(curso) references curso(id),
 	constraint fk_curriculo_disciplina_disciplina_id
-    	foreign key(disciplina) references disciplina(id)
+    	foreign key(disciplina) references disciplina(id),
+	CONSTRAINT implatação UNIQUE(implantacao, disciplina)
 );
-
-
-
-ALTER TABLE bcd.curriculo
-  ADD CONSTRAINT curriculo UNIQUE(implantacao, disciplina);
 
 
 
@@ -147,14 +142,9 @@ CREATE TABLE IF NOT EXISTS DisciplinasCursadas(
 	constraint fk_disciplinasCursadas_disciplina_disciplina_id
     	foreign key(disciplina) references disciplina(id),
 	constraint fk_disciplinaCursadas_matricula_matricula_id
-    	foreign key(matricula) references matricula(id)
+    	foreign key(matricula) references matricula(id),
+     CONSTRAINT matricula UNIQUE(matricula, disciplina)   
 );
-
-
-ALTER TABLE bcd.DisciplinasCursadas
-  ADD CONSTRAINT DisciplinasCursadas UNIQUE(matricula, disciplina);
-
-
 
 
 
@@ -213,11 +203,9 @@ CREATE TABLE IF NOT EXISTS MinistradoresDasDisciplinas(
 CREATE TABLE IF NOT EXISTS semestre(
 	id smallint unsigned auto_increment primary key,
 	ano smallint unsigned not null,
-    metade boolean not null -- true = 1o semestre & false = 2o semestre
+    metade boolean not null, -- true = 1o semestre & false = 2o semestre
+    CONSTRAINT ano UNIQUE(ano, metade)
 );
-
-ALTER TABLE bcd.semestre
-  ADD CONSTRAINT semestre UNIQUE(ano, metade);
 
 
 
