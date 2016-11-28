@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS matricula(
 	id int unsigned auto_increment primary key,
 	numero bigint unsigned unique not null,
 	aluno int unsigned not null,
+	token 
 	curso smallint unsigned not null,
 	constraint fk_matricula_aluno_aluno_id
     	foreign key(aluno) references aluno(id),
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS DisciplinasCursadas(
 
 CREATE TABLE IF NOT EXISTS PedidoDeMatricula(
 	id smallint unsigned auto_increment primary key,
-	sessao char(32),
+	sessao char(32) unique,
 	tipo tinyint unsigned not null,
 	matricula int unsigned not null,
 	disciplina smallint unsigned not null,
