@@ -1,6 +1,5 @@
-
-
-use bcd;
+-- Troque a base, se necessário
+USE bcd;
 
 DROP TABLE IF EXISTS horario;
 DROP TABLE IF EXISTS semestre;
@@ -16,24 +15,10 @@ DROP TABLE IF EXISTS disciplina;
 DROP TABLE IF EXISTS aluno;
 DROP TABLE IF EXISTS campus;
 
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS campus(
 	id tinyint unsigned auto_increment primary key,
 	nome varchar(128) unique not null
 );
-
-
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS aluno(
 	id int unsigned auto_increment primary key,
@@ -43,13 +28,6 @@ CREATE TABLE IF NOT EXISTS aluno(
 	email varchar(128)
 );
 
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS disciplina(
 	id smallint unsigned auto_increment primary key,
 	codigo char(8) unique not null,
@@ -57,13 +35,6 @@ CREATE TABLE IF NOT EXISTS disciplina(
 	CH smallint unsigned not null,
 	CHmin smallint unsigned not null default 0
 );
-
-
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS preRequisito(
 	id smallint unsigned auto_increment primary key,
@@ -77,13 +48,6 @@ CREATE TABLE IF NOT EXISTS preRequisito(
     	foreign key(preRequisito) references disciplina(id)
 );
 
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS curso(
 	id smallint unsigned auto_increment primary key,
 	numero smallint unsigned unique not null,
@@ -94,13 +58,6 @@ CREATE TABLE IF NOT EXISTS curso(
 	constraint fk_curso_campus_campus_id
     	foreign key(campus) references campus(id)
 );
-
-
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS curriculo(
 	id smallint unsigned auto_increment primary key,
@@ -114,9 +71,6 @@ CREATE TABLE IF NOT EXISTS curriculo(
 	CONSTRAINT implatação UNIQUE(implantacao, disciplina)
 );
 
-
-
-
 CREATE TABLE IF NOT EXISTS matricula(
 	id int unsigned auto_increment primary key,
 	numero bigint unsigned unique not null,
@@ -128,13 +82,6 @@ CREATE TABLE IF NOT EXISTS matricula(
     	foreign key(curso) references curso(id)
 );
 
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS DisciplinasCursadas(
 	id smallint unsigned auto_increment primary key,
 	matricula int unsigned not null,
@@ -143,10 +90,8 @@ CREATE TABLE IF NOT EXISTS DisciplinasCursadas(
     	foreign key(disciplina) references disciplina(id),
 	constraint fk_disciplinaCursadas_matricula_matricula_id
     	foreign key(matricula) references matricula(id),
-     CONSTRAINT matricula UNIQUE(matricula, disciplina)   
+     CONSTRAINT matricula UNIQUE(matricula, disciplina)
 );
-
-
 
 CREATE TABLE IF NOT EXISTS PedidoDeMatricula(
 	id smallint unsigned auto_increment primary key,
@@ -160,9 +105,6 @@ CREATE TABLE IF NOT EXISTS PedidoDeMatricula(
     	foreign key(matricula) references matricula(id)
 );
 
-
-
-
 CREATE TABLE IF NOT EXISTS professor(
 	id smallint unsigned auto_increment primary key,
 	nome varchar(128) not null,
@@ -171,13 +113,6 @@ CREATE TABLE IF NOT EXISTS professor(
 	constraint fk_professor_campus_campus_id
     	foreign key(campus) references campus(id)
 );
-
-
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS MinistradoresDasDisciplinas(
 	id smallint unsigned auto_increment primary key,
@@ -189,28 +124,12 @@ CREATE TABLE IF NOT EXISTS MinistradoresDasDisciplinas(
     	foreign key(professor) references professor(id)
 );
 
-
-
-
-
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS semestre(
 	id smallint unsigned auto_increment primary key,
 	ano smallint unsigned not null,
     metade boolean not null, -- true = 1o semestre & false = 2o semestre
     CONSTRAINT ano UNIQUE(ano, metade)
 );
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS horario(
 	id smallint unsigned auto_increment primary key,
@@ -224,9 +143,4 @@ CREATE TABLE IF NOT EXISTS horario(
     	foreign key(disciplina) references disciplina(id),
 	constraint fk_horario_semestre_semestre_id
     	foreign key(semestre) references semestre(id)
-
 );
-
-
-
-
