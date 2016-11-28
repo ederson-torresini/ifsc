@@ -1,1 +1,3 @@
- 
+- Criar info.txt em cada pasta explicando seu conteudo
+	WEBPAGES: Conteudo front-end
+	WEBSERVER: Conteudo do servidor 
