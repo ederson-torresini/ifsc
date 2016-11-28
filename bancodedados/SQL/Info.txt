@@ -1,0 +1,1 @@
+Esta pasta apresenta o código da DDL do projeto, e os SQL's para povoação das tabelas geradas no DDL com múltiplas entradas para testes.
