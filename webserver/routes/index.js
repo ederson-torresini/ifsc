@@ -9,6 +9,13 @@ var connection = mysql.createConnection
 	}
 );
 
+var ldap = require('ldapjs');
+var client = ldap.createClient({
+  url: 'ldap://200.135.37.118'
+});
+
+//////
+
 getSQLFormat = function(disciplinas, colunas, coluna_where, tabela)
 {
     var str = 'select ' + colunas + ' from ' + tabela + ' where ';
@@ -22,6 +29,58 @@ getSQLFormat = function(disciplinas, colunas, coluna_where, tabela)
     }
     str += ';';
     return str;
+};
+
+login = function(req, res)
+{
+
+    var ldapres = null;
+    
+    var opts = {
+        filter: '(uid=' + req.body.nome + ')',
+        scope: 'sub',
+    }
+    
+    client.search('dc=cefetsc,dc=edu,dc=br', opts, function (err, result) {
+        result.on('searchEntry',
+            function (entry)
+            {
+                ldapres = entry.raw;
+            }
+        )
+    
+        result.on('end',
+            function (result)
+            {
+                if (!ldapres)
+                {
+                    console.log('Invalid username')
+                    res.status(401);
+                    //res.send('<h1>401 Unauthorized.</h1>');
+                }
+                else
+                {
+                    console.log('Valid username');
+                    client.bind(ldapres.dn, req.body.senha,
+                        function (err)
+                        {
+                            if (err)
+                            {
+                                console.log('Wrong password');
+                                res.status(401);
+                            }
+                            else
+                            {
+                                console.log('You are logged')
+                                res.status(200);
+                                res.sendFile('/var/www/html/fe_matricula/matricula.html', '{dotfiles=allow}');
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    })
 };
 
 getCargaHoraria = function(req, res)
@@ -93,8 +152,9 @@ console.log('row: %s', JSON.stringify(rows));
 // (Saberemos nos próximos episódios!!!)
 exports.login = function(req, res)
 {
-    res.status(200);
-    res.send('<h1>Login efetuado com sucesso!</h1>');
+    //res.status(200);
+    //res.send('<h1>Login efetuado com sucesso!</h1>');
+    login(req, res);
 };
 
 exports.carga_horaria = function(req, res)

@@ -3,7 +3,14 @@ var myParser = require("body-parser");
 var app = express();
 var router = require('./routes/index')
 
-app.use(myParser.urlencoded({extended : true}));
+//support parsing of application/json type post data
+app.use(myParser.json());
+
+//support parsing of application/x-www-form-urlencoded post data
+app.use(myParser.urlencoded({ extended: true }));
+
+
+//app.use(express.static('/var/www/html/fe_matricula/matricula.html'));
 
 // TESTES
 app.get('/js/', function(req, res) {
