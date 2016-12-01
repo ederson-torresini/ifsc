@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS campus(
 
 CREATE TABLE IF NOT EXISTS aluno(
 	idaluno int unsigned auto_increment primary key,
+	ldap varchar(128) not null,
 	nome varchar(128) not null,
 	documento char(11) unique not null,
 	telefone bigint unsigned,

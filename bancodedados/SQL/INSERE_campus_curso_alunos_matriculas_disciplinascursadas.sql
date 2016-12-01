@@ -4,9 +4,18 @@ insert into campus(nome)
 -- select * from campus;
 
 -- desc aluno;
-insert into aluno(nome, documento, telefone, email)
+insert into aluno(ldap, nome, documento, telefone, email)
     	values
      	(
+    	'gustavo.pms1990',
+    	'Gustavo Paulo Medeiros da Silva',
+    	'1287567497',
+    	'99999999',
+    	'gustavo@bcd.ifsc.edu.br'
+    	),  
+
+     	(
+    	'giulio.c',
     	'Giulio Cruz de Oliveira',
     	'1234567890',
     	'96298059',
@@ -14,54 +23,63 @@ insert into aluno(nome, documento, telefone, email)
     	),  
 
      	(
+    	'angelo.d',
     	'Angelo Damasio Machado',
     	'2345678901',
     	'90234567',
     	'amachado@ifsc.edu.br'
     	),     
      	(
+    	'gustavo.m',
     	'Gustavo Matos',
     	'3456789012',
     	'82569087',
     	'gmatos@ifsc.edu.br'
     	),               
      	(
+    	'jean.m',
     	'Jean Michel Souza Sant\'Ana',
     	'4567890123',
     	'88567687',
     	'jsantana@ifsc.edu.br'
     	),              
        	(
+    	'mathias.s',
     	'Mathias Silva da Rosa',
     	'5678901234',
     	'8564576',
     	'mrosa@ifsc.edu.br'
     	), 
         (
+    	'helenLuciany.c',
     	'HelenLuciany Chechinel',
     	'6789012345',
     	'85642342',
     	'hchechinel@ifsc.edu.br'
     	), 
         (
+     	'mathias.h',
      	'Mathias Hillesheim',
     	'7890123456',
     	'8243546',
     	'mhillesheim@ifsc.edu.br'
     	),   
         (
+       	'daniel.c',
        	'Daniel Cabral Correa',
     	'8901234567',
     	'85443344',
     	'dcorrea@ifsc.edu.br'
     	), 
         (
+       	'daniel.t',
        	'Daniel Tatsch',
     	'9012345678',
     	'82687866',
     	'dtatsch@ifsc.edu.br'
     	),
 		(
+       	'diego.b',
        	'Diego Bitencourt',
     	'0123456789',
     	'84678788',
