@@ -620,7 +620,7 @@ Tradução dos valores binários:
 
 
 
-insert into preRequisito(obrigatorio, eixo, disciplina, preRequisito)
+insert into prerequisito(obrigatorio, eixo, disciplina, prerequisito)
 
 
 
@@ -761,7 +761,7 @@ true,
 
 
 
-insert into preRequisito(obrigatorio, eixo,disciplina, preRequisito)
+insert into prerequisito(obrigatorio, eixo,disciplina, prerequisito)
 
 
 
@@ -1376,7 +1376,7 @@ true,
 
 
 
-insert into preRequisito(obrigatorio, eixo, disciplina, preRequisito)
+insert into prerequisito(obrigatorio, eixo, disciplina, prerequisito)
 
 
 
@@ -1817,7 +1817,7 @@ true,
 
 
 
-insert into preRequisito(obrigatorio, eixo, disciplina, preRequisito)
+insert into prerequisito(obrigatorio, eixo, disciplina, prerequisito)
 
 
 
@@ -2438,7 +2438,7 @@ true,
 
 
 
-insert into preRequisito(obrigatorio, eixo,disciplina, preRequisito)
+insert into prerequisito(obrigatorio, eixo,disciplina, prerequisito)
 
 
 
@@ -2969,7 +2969,7 @@ true,
 
 
 
-insert into preRequisito(obrigatorio, eixo, disciplina, preRequisito)
+insert into prerequisito(obrigatorio, eixo, disciplina, prerequisito)
 
 
 
