@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS matricula(
 	numero bigint unsigned unique not null,
 	aluno int unsigned not null,
 	curso smallint unsigned not null,
+	token char(32) unique,
 	constraint fk_matricula_aluno_aluno_id
     	foreign key(aluno) references aluno(idaluno),
 	constraint fk_matricula_curso_curso_id
