@@ -1,11 +1,20 @@
---INICIO DO TRABALHO COM VIEWS (em desenvolimento)
+
+
+
+
+
+
+
+-- INICIO DO TRABALHO COM VIEWS (em desenvolimento)
 
 
 -- apresenta todas disciplinas do curso associadas à uma mátricula para iniciar a operação de criação da tabela referente a disciplinas elegíveis
+
+
 drop view TODAS_DISCIPLINAS_DO_CURSO;
 
 CREATE VIEW TODAS_DISCIPLINAS_DO_CURSO AS
-SELECT disciplina.iddisciplina, matricula.idmatricula
+SELECT disciplina.iddisciplina, matricula.idmatricula, disciplina.CHmin
 FROM disciplina
 LEFT JOIN matricula
 ON (true);
@@ -58,7 +67,7 @@ select * from QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS where matricu
 
 -- tabela que indica a quantidade de pre requisitos necessarios para cada disciplina
 
-drop view QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS;
+drop view QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA;
 
 CREATE VIEW QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA AS
 
@@ -135,7 +144,7 @@ drop view CARGA_HORARIA_MATRICULAS;
 
 CREATE VIEW CARGA_HORARIA_MATRICULAS AS
 
-select matricula, sum(CH)
+select matricula, sum(CH) as CHmat
 from DisciplinasCursadas
 inner join disciplina
 on disciplina.iddisciplina = DisciplinasCursadas.disciplina
@@ -143,6 +152,8 @@ GROUP by matricula;
 
 select * from CARGA_HORARIA_MATRICULAS;
 
+
+-- tabela com todas as disciplinas elegiveis sem considerar a carga horaria
 
 drop view DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH;
 
@@ -155,31 +166,46 @@ SELECT DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR.iddisciplina, DIS
 select * from DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH;
 
 
+-- tabela com todas disciplinas one uma matricula atingiu a CH min
+
+drop view DISICPLINAS_COM_CHmin_ATINGIDA;
+
+CREATE VIEW DISICPLINAS_COM_CHmin_ATINGIDA AS
+
+SELECT TODAS_DISCIPLINAS_DO_CURSO.iddisciplina, TODAS_DISCIPLINAS_DO_CURSO.idmatricula
+FROM TODAS_DISCIPLINAS_DO_CURSO, CARGA_HORARIA_MATRICULAS
+WHERE
+(CARGA_HORARIA_MATRICULAS.matricula=TODAS_DISCIPLINAS_DO_CURSO.idmatricula AND TODAS_DISCIPLINAS_DO_CURSO.CHmin<CARGA_HORARIA_MATRICULAS.CHmat);
+
+ 
+select * from DISICPLINAS_COM_CHmin_ATINGIDA;
+
+
+
+-- Disciplinas elegiveis
+
+drop view DISCIPLINAS_ELEGIVEIS;
+
+CREATE VIEW DISCIPLINAS_ELEGIVEIS AS
+
+select DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.matricula, DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.disciplina
+from DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH
+inner join DISICPLINAS_COM_CHmin_ATINGIDA
+on (DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.matricula = DISICPLINAS_COM_CHmin_ATINGIDA.idmatricula AND DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.disciplina = DISICPLINAS_COM_CHmin_ATINGIDA.iddisciplina );
+
+select * from DISCIPLINAS_ELEGIVEIS;
 
 
 
 
+-- Disciplinas elegiveis no formato final
 
+drop view DISCIPLINAS_ELEGIVEIS_pretty;
 
+CREATE VIEW DISCIPLINAS_ELEGIVEIS_pretty AS
 
+select  disciplina.codigo , matricula.numero
+from DISCIPLINAS_ELEGIVEIS, disciplina, matricula
+WHERE(DISCIPLINAS_ELEGIVEIS.disciplina=disciplina.iddisciplina AND DISCIPLINAS_ELEGIVEIS.matricula=matricula.idmatricula);
 
-
-
-
--- A fazer: restringir as disciplinas que n tem chmin atendida
-
-
-
--- Verificando a CHmin de uma disciplinas
-select CHmin
-from disciplina
-where codigo = 'CAL29002';
-
-
-
-
-
-
-
-
-
+select * from DISCIPLINAS_ELEGIVEIS_pretty;
