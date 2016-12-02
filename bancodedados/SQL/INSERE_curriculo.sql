@@ -427,3 +427,4 @@ insert into curriculo(curso, implantacao, disciplina)
                
                
 -- select * from curriculo;
+
