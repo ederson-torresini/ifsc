@@ -54,8 +54,8 @@ insert into professor(nome, documento, campus)
 -- select * from professor;
 -- select * from disciplina;
 
--- desc MinistradoresDasDisciplinas;
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+-- desc ministradoresdasdisciplinas;
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
     (
     (select iddisciplina from disciplina where codigo = 'STD29006'),
@@ -66,7 +66,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '1234567890')
     );
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
     (
     (select iddisciplina from disciplina where codigo = 'PJI29001'),
@@ -81,14 +81,14 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '0123456789')
     );    
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
     (
     (select iddisciplina from disciplina where codigo = 'RED29005'),
     (select idprofessor from professor where documento = '9012345678')
     ); 
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
     (
     (select iddisciplina from disciplina where codigo = 'PRG29003'),
@@ -99,7 +99,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '8901234567')
     );    
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
 	(
     (select iddisciplina from disciplina where codigo = 'DLP29006'),
@@ -118,7 +118,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '7890123456')
     );     
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
 	(
     (select iddisciplina from disciplina where codigo = 'COM29007'),
@@ -129,7 +129,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '6789012345')
     );
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
 	(
     (select iddisciplina from disciplina where codigo = 'ELI29001'),
@@ -140,7 +140,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '5678901234')
     );
 
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
 	(
     (select iddisciplina from disciplina where codigo = 'PRE29006'),
@@ -151,7 +151,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '4567890123')
     );
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
 	(
     (select iddisciplina from disciplina where codigo = 'PJI29001'),
@@ -162,7 +162,7 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '3456789012')
     );
     
-insert into MinistradoresDasDisciplinas(disciplina, professor)
+insert into ministradoresdasdisciplinas(disciplina, professor)
 	values
 	(
     (select iddisciplina from disciplina where codigo = 'LOG29001'),
@@ -173,4 +173,4 @@ insert into MinistradoresDasDisciplinas(disciplina, professor)
     (select idprofessor from professor where documento = '2345678901')
     );
     
--- select * from MinistradoresDasDisciplinas;  
+-- select * from ministradoresdasdisciplinas;  
