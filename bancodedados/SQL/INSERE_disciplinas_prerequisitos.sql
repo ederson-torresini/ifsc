@@ -978,6 +978,32 @@ true,
 
 ),
 
+(
+
+
+
+
+true,
+
+
+
+
+true,
+
+
+
+
+(select iddisciplina  from disciplina where codigo = 'PRG29002'),
+
+
+
+
+(select iddisciplina  from disciplina where codigo = 'LOG29001')
+
+
+
+
+),
 
 (
 
