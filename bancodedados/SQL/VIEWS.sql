@@ -1,145 +1,144 @@
 
 
-
 -- TRABALHO COM VIEWS (falta juntar as views para operacao unica)
 
 
--- apresenta todas disciplinas do curso associadas à uma mátricula para iniciar a operação de criação da tabela referente a disciplinas elegíveis
+-- apresenta todas disciplinas do curso associadas à uma mátricula para iniciar a operação de criação da tabela referente a disciplinas elegiveis
 
 
-drop view TODAS_DISCIPLINAS_DO_CURSO;
+drop view todas_disciplinas_do_curso;
 
-CREATE VIEW TODAS_DISCIPLINAS_DO_CURSO AS
+CREATE VIEW todas_disciplinas_do_curso AS
 SELECT disciplina.iddisciplina, matricula.idmatricula, disciplina.CHmin
 FROM disciplina
 LEFT JOIN matricula
 ON (true);
 
-select * from TODAS_DISCIPLINAS_DO_CURSO;
+select * from todas_disciplinas_do_curso;
 
 
 -- primeira operação feita sobre a tabela inicial que elimina todas as matérias já crusadas
 
-drop view TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO;
+drop view todas_disciplinas_que_faltam_cursar_do_curso;
 
-CREATE VIEW TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO AS
- SELECT TODAS_DISCIPLINAS_DO_CURSO.iddisciplina, TODAS_DISCIPLINAS_DO_CURSO.idmatricula
- FROM TODAS_DISCIPLINAS_DO_CURSO
+CREATE VIEW todas_disciplinas_que_faltam_cursar_do_curso AS
+ SELECT todas_disciplinas_do_curso.iddisciplina, todas_disciplinas_do_curso.idmatricula
+ FROM todas_disciplinas_do_curso
  WHERE NOT EXISTS
     (select * from disciplinascursadas
-     WHERE TODAS_DISCIPLINAS_DO_CURSO.iddisciplina = disciplinascursadas.disciplina AND TODAS_DISCIPLINAS_DO_CURSO.idmatricula = disciplinascursadas.matricula
+     WHERE todas_disciplinas_do_curso.iddisciplina = disciplinascursadas.disciplina AND todas_disciplinas_do_curso.idmatricula = disciplinascursadas.matricula
      );
  
-select * from TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO;
+select * from todas_disciplinas_que_faltam_cursar_do_curso;
 
 
 -- gera o conjunto de disciplinas que apresentam algum pre-requisito completo.
 
-drop view TODAS_DISCIPLINAS_QUE_SE_TEM_ALGUM_PREREQUISITO_DO_CURSO;
+drop view todas_disciplinas_que_se_tem_algum_prerequisito_do_curso;
 
-CREATE VIEW TODAS_DISCIPLINAS_QUE_SE_TEM_ALGUM_PREREQUISITO_DO_CURSO AS
+CREATE VIEW todas_disciplinas_que_se_tem_algum_prerequisito_do_curso AS
 SELECT prerequisito.disciplina, disciplinascursadas.matricula
 FROM prerequisito
 INNER JOIN disciplinascursadas
-ON (disciplinascursadas.disciplina=prerequisito.prerequisito AND preRequisito.obrigatorio = 1 AND preRequisito.eixo = 1);
+ON (disciplinascursadas.disciplina=prerequisito.prerequisito AND prerequisito.obrigatorio = 1 AND prerequisito.eixo = 1);
 
-select * from TODAS_DISCIPLINAS_QUE_SE_TEM_ALGUM_PREREQUISITO_DO_CURSO;
+select * from todas_disciplinas_que_se_tem_algum_prerequisito_do_curso;
 
 
 
 -- tabela que indica a quantidade de pre-requisitos obrigatórios atingidos por uma certa matrícula
 
-drop view QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS;
+drop view quantidade_de_prerequisitos_das_disciplinass_cursadas;
 
-CREATE VIEW QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS AS
+CREATE VIEW quantidade_de_prerequisitos_das_disciplinass_cursadas AS
 
  SELECT disciplina, matricula, count(disciplina) as qntpre_atingido
-  FROM TODAS_DISCIPLINAS_QUE_SE_TEM_ALGUM_PREREQUISITO_DO_CURSO
+  FROM todas_disciplinas_que_se_tem_algum_prerequisito_do_curso
  GROUP by disciplina, matricula;
 
-select * from QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS ;
+select * from quantidade_de_prerequisitos_das_disciplinass_cursadas ;
 
 
 
 -- tabela que indica a quantidade de pre requisitos necessarios para cada disciplina
 
-drop view QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA;
+drop view quantidade_de_prerequisitos_das_disciplinas;
 
-CREATE VIEW QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA AS
+CREATE VIEW quantidade_de_prerequisitos_das_disciplinas AS
 
 SELECT disciplina, count(disciplina) as qntpre
   FROM prerequisito
   WHERE obrigatorio = 1 AND eixo = 1
   GROUP by disciplina;
 
-select * from QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA;
+select * from quantidade_de_prerequisitos_das_disciplinas;
 
 
 -- quantidade de pre requisitos necessarios para cada disciplina associados a todas matriculas para a operacao de verificar se se antende todos pre requisitos
 
-drop view QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS;
+drop view quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS;
 
-CREATE VIEW QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS AS
-SELECT QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA.disciplina, matricula.idmatricula, QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA.qntpre
-FROM QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINA
+CREATE VIEW quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS AS
+SELECT quantidade_de_prerequisitos_das_disciplinas.disciplina, matricula.idmatricula, quantidade_de_prerequisitos_das_disciplinas.qntpre
+FROM quantidade_de_prerequisitos_das_disciplinas
 JOIN matricula
 ON (true);
 
-select * from QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS;
+select * from quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS;
 
 -- tabela que retorna todas as disciplinas cujo os pre-requisitos foram atingidos.
 
-drop view TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO;
+drop view todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso;
 
-CREATE VIEW TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO AS
+CREATE VIEW todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso AS
 
- SELECT QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS.disciplina, QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS.matricula
- FROM QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS
- INNER JOIN QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS
-  ON ( QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS.disciplina = QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS.disciplina AND QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS.matricula = QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS.idmatricula AND QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_CURSADAS.qntpre_atingido = QUANTIDADE_DE_PREREQUISITOS_DAS_DISCIPLINAS_TODAS_MATRICULAS.qntpre
+ SELECT quantidade_de_prerequisitos_das_disciplinass_cursadas.disciplina, quantidade_de_prerequisitos_das_disciplinass_cursadas.matricula
+ FROM quantidade_de_prerequisitos_das_disciplinass_cursadas
+ INNER JOIN quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS
+  ON ( quantidade_de_prerequisitos_das_disciplinass_cursadas.disciplina = quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS.disciplina AND quantidade_de_prerequisitos_das_disciplinass_cursadas.matricula = quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS.idmatricula AND quantidade_de_prerequisitos_das_disciplinass_cursadas.qntpre_atingido = quantidade_de_prerequisitos_das_disciplinasS_TODAS_MATRICULAS.qntpre
      );
  
-select * from TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO;
+select * from todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso;
 
 
 
 -- tabela que apresenta todas disciplinas do curso que uma matricula atingiu os pre requisitos e ainda não a cursou
 
-drop view DISCIPLINAS_A_CURSAR_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO;
+drop view disciplinas_a_cursar_que_se_tem_todos_prerequisitos_do_curso;
 
-CREATE VIEW DISCIPLINAS_A_CURSAR_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO AS
- SELECT TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO.disciplina, TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO.matricula
- FROM TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO
+CREATE VIEW disciplinas_a_cursar_que_se_tem_todos_prerequisitos_do_curso AS
+ SELECT todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso.disciplina, todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso.matricula
+ FROM todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso
  WHERE NOT EXISTS
     (select * from disciplinascursadas
-     WHERE TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO.disciplina = disciplinascursadas.disciplina AND TODAS_DISCIPLINAS_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO.matricula = disciplinascursadas.matricula
+     WHERE todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso.disciplina = disciplinascursadas.disciplina AND todas_disciplinas_que_se_tem_todos_prerequisitos_do_curso.matricula = disciplinascursadas.matricula
      );
  
-select * from DISCIPLINAS_A_CURSAR_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO;
+select * from disciplinas_a_cursar_que_se_tem_todos_prerequisitos_do_curso;
 
 
 
 -- tabela que apresenta todas disciplinas que não tem disciplinas como pre requisito que faltam cursar para cada matricula
 
-drop view DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR;
+drop view disciplinas_sem_disciplinas_como_pre_requisito_a_cursar;
 
-CREATE VIEW DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR AS
- SELECT TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO.iddisciplina, TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO.idmatricula
- FROM TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO
+CREATE VIEW disciplinas_sem_disciplinas_como_pre_requisito_a_cursar AS
+ SELECT todas_disciplinas_que_faltam_cursar_do_curso.iddisciplina, todas_disciplinas_que_faltam_cursar_do_curso.idmatricula
+ FROM todas_disciplinas_que_faltam_cursar_do_curso
  WHERE NOT EXISTS
-    (select * from preRequisito
-     WHERE TODAS_DISCIPLINAS_QUE_FALTAM_CURSAR_DO_CURSO.iddisciplina = preRequisito.disciplina
+    (select * from prerequisito
+     WHERE todas_disciplinas_que_faltam_cursar_do_curso.iddisciplina = prerequisito.disciplina
      );
  
-select * from DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR;
+select * from disciplinas_sem_disciplinas_como_pre_requisito_a_cursar;
 
 
 
 -- tabela com novos alunos
 
-drop view ALUNOS_NOVOS;
+drop view alunos_novos;
 
-CREATE VIEW ALUNOS_NOVOS AS
+CREATE VIEW alunos_novos AS
 
 select matricula.idmatricula, 0
 from matricula
@@ -147,85 +146,84 @@ WHERE NOT EXISTS(
 select * from disciplinascursadas
 WHERE disciplinascursadas.matricula=matricula.idmatricula);
 
-select * from ALUNOS_NOVOS;
+select * from alunos_novos;
 
 
 
 
 -- tabela que apresenta a CH total de cada matricula ( deve se realizar o union com alunso novos pois a logica nao inclui a soma de CH de matriculas nao presentes em disciplinascursadas
 
-drop view CARGA_HORARIA_MATRICULAS;
+drop view carga_horaria_matriculas;
 
-CREATE VIEW CARGA_HORARIA_MATRICULAS AS
+CREATE VIEW carga_horaria_matriculas AS
 
-(select matricula, sum(CH) as CHmat
-from DisciplinasCursadas
+select matricula, sum(CH) as CHmat
+from disciplinascursadas
 right join disciplina
-on disciplina.iddisciplina = DisciplinasCursadas.disciplina
-GROUP by matricula)
+on disciplina.iddisciplina = disciplinascursadas.disciplina
+GROUP by matricula
 UNION
-select * from ALUNOS_NOVOS;
+select * from alunos_novos;
 
-select * from CARGA_HORARIA_MATRICULAS;
+select * from carga_horaria_matriculas;
+
 
 
 
 -- tabela com todas as disciplinas elegiveis sem considerar a carga horaria
 
-drop view DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH;
+drop view disciplinas_elegiveis_sem_considerar_ch;
 
-CREATE VIEW DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH AS
+CREATE VIEW disciplinas_elegiveis_sem_considerar_ch AS
 
-SELECT DISCIPLINAS_A_CURSAR_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO.disciplina, DISCIPLINAS_A_CURSAR_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO.matricula FROM DISCIPLINAS_A_CURSAR_QUE_SE_TEM_TODOS_PREREQUISITO_DO_CURSO
+SELECT disciplinas_a_cursar_que_se_tem_todos_prerequisitos_do_curso.disciplina, disciplinas_a_cursar_que_se_tem_todos_prerequisitos_do_curso.matricula FROM disciplinas_a_cursar_que_se_tem_todos_prerequisitos_do_curso
 UNION
-SELECT DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR.iddisciplina, DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR.idmatricula FROM DISCIPLINAS_SEM_DISCIPLINAS_COMO_PRE_REQUISITO_A_CURSAR;
+SELECT disciplinas_sem_disciplinas_como_pre_requisito_a_cursar.iddisciplina, disciplinas_sem_disciplinas_como_pre_requisito_a_cursar.idmatricula FROM disciplinas_sem_disciplinas_como_pre_requisito_a_cursar;
 
-select * from DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH where matricula=3;
+select * from disciplinas_elegiveis_sem_considerar_ch where matricula=3;
 
 
 -- tabela com todas disciplinas one uma matricula atingiu a CH min
 
-drop view DISICPLINAS_COM_CHmin_ATINGIDA;
+drop view disciplinas_com_CHmin_atingida;
 
-CREATE VIEW DISICPLINAS_COM_CHmin_ATINGIDA AS
+CREATE VIEW disciplinas_com_CHmin_atingida AS
 
-SELECT TODAS_DISCIPLINAS_DO_CURSO.iddisciplina, TODAS_DISCIPLINAS_DO_CURSO.idmatricula
-FROM TODAS_DISCIPLINAS_DO_CURSO, CARGA_HORARIA_MATRICULAS
+SELECT todas_disciplinas_do_curso.iddisciplina, todas_disciplinas_do_curso.idmatricula
+FROM todas_disciplinas_do_curso, carga_horaria_matriculas
 WHERE
-(CARGA_HORARIA_MATRICULAS.matricula=TODAS_DISCIPLINAS_DO_CURSO.idmatricula AND TODAS_DISCIPLINAS_DO_CURSO.CHmin<=CARGA_HORARIA_MATRICULAS.CHmat);
+(carga_horaria_matriculas.matricula=todas_disciplinas_do_curso.idmatricula AND todas_disciplinas_do_curso.CHmin<=carga_horaria_matriculas.CHmat);
 
  
-select * from DISICPLINAS_COM_CHmin_ATINGIDA;
+select * from disciplinas_com_CHmin_atingida;
 
 
 
 -- Disciplinas elegiveis
 
-drop view DISCIPLINAS_ELEGIVEIS;
+drop view disciplinas_elegiveis;
 
-CREATE VIEW DISCIPLINAS_ELEGIVEIS AS
+CREATE VIEW disciplinas_elegiveis AS
 
-select DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.matricula, DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.disciplina
-from DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH
-inner join DISICPLINAS_COM_CHmin_ATINGIDA
-on (DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.matricula = DISICPLINAS_COM_CHmin_ATINGIDA.idmatricula AND DISICPLINAS_ELEGíVEIS_SEM_CONSIDERAR_CH.disciplina = DISICPLINAS_COM_CHmin_ATINGIDA.iddisciplina );
+select disciplinas_elegiveis_sem_considerar_ch.matricula, disciplinas_elegiveis_sem_considerar_ch.disciplina
+from disciplinas_elegiveis_sem_considerar_ch
+inner join disciplinas_com_CHmin_atingida
+on (disciplinas_elegiveis_sem_considerar_ch.matricula = disciplinas_com_CHmin_atingida.idmatricula AND disciplinas_elegiveis_sem_considerar_ch.disciplina = disciplinas_com_CHmin_atingida.iddisciplina );
 
-select * from DISCIPLINAS_ELEGIVEIS;
+select * from disciplinas_elegiveis;
 
 
 
 
 -- Disciplinas elegiveis no formato final
 
-drop view DISCIPLINAS_ELEGIVEIS_pretty;
+drop view disciplinas_elegiveis_pretty;
 
-CREATE VIEW DISCIPLINAS_ELEGIVEIS_pretty AS
+CREATE VIEW disciplinas_elegiveis_pretty AS
 
 select  disciplina.codigo , matricula.numero
-from DISCIPLINAS_ELEGIVEIS, disciplina, matricula
-WHERE(DISCIPLINAS_ELEGIVEIS.disciplina=disciplina.iddisciplina AND DISCIPLINAS_ELEGIVEIS.matricula=matricula.idmatricula);
+from disciplinas_elegiveis, disciplina, matricula
+WHERE(disciplinas_elegiveis.disciplina=disciplina.iddisciplina AND disciplinas_elegiveis.matricula=matricula.idmatricula);
 
-select * from DISCIPLINAS_ELEGIVEIS_pretty;
-
-
+select * from disciplinas_elegiveis_pretty;
 
