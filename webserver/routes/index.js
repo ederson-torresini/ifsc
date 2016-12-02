@@ -141,6 +141,32 @@ console.log('row: %s', JSON.stringify(rows));
     );
 };
 
+getHorarioDisciplina = function(req, res)
+{
+    var str = getSQLFormat(req.body.disciplinas, '*', 'disciplina', 'v_horario');
+
+//console.log('str: %s', str);
+
+    connection.query(str,
+        function(err, rows, fields)
+        {
+console.log('row: %s', JSON.stringify(rows));
+//console.log('{"disciplinas":' + JSON.stringify(rows) + '}');
+            if (!err)
+            {
+                res.status(200);
+                //res.json(JSON.parse('{"disciplinas":' + JSON.stringify(rows) + '}'));
+                res.json(rows);
+            }
+            else
+            {
+                res.status(503);
+                res.send(err);
+            }
+        }
+    );
+};
+
 
 
 
@@ -165,4 +191,9 @@ exports.carga_horaria = function(req, res)
 exports.pre_requisito = function(req, res)
 {
     getPreRequisito(req, res);
+};
+
+exports.horariodisciplina = function(req, res)
+{
+    getHorarioDisciplina(req, res);
 };

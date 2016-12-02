@@ -28,6 +28,7 @@ methodNotAllowed = function(req, res)
 app.post('/js/login', router.login).all('/js/login', methodNotAllowed);
 app.post('/js/carga-horaria', router.carga_horaria).all('/js/carga-horaria', methodNotAllowed);
 app.post('/js/pre-requisito', router.pre_requisito).all('/js/pre-requisito', methodNotAllowed);
+app.post('/js/horariodisciplina', router.horariodisciplina).all('/js/horariodisciplina', methodNotAllowed);
 
 
 var server = app.listen(3000);
