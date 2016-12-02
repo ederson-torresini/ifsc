@@ -168,8 +168,8 @@ insert into matricula(numero, aluno, curso)
         
 -- select * from matricula;
 
--- desc DisciplinasCursadas;
-insert into DisciplinasCursadas(matricula, disciplina)
+-- desc disciplinascursadas;
+insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002321'),
@@ -199,7 +199,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002321'),
     	(select iddisciplina from disciplina where codigo = 'GAL29001') 
     	);
- insert into DisciplinasCursadas(matricula, disciplina)
+ insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002323'),
@@ -433,7 +433,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002323'),
     	(select iddisciplina from disciplina where codigo = 'TCC29010')
         );       
- insert into DisciplinasCursadas(matricula, disciplina)
+ insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002328'),
@@ -511,7 +511,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002328'),
     	(select iddisciplina from disciplina where codigo = 'PRG29003') 
     	);            
- insert into DisciplinasCursadas(matricula, disciplina)
+ insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002329'),
@@ -565,7 +565,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002329'),
     	(select iddisciplina from disciplina where codigo = 'PRG29002') 
     	);       
-  insert into DisciplinasCursadas(matricula, disciplina)
+  insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002327'),
@@ -667,7 +667,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002327'),
     	(select iddisciplina from disciplina where codigo = 'POO29004') 
     	);              
-  insert into DisciplinasCursadas(matricula, disciplina)
+  insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002326'),
@@ -793,7 +793,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002326'),
     	(select iddisciplina from disciplina where codigo = 'SIS29005') 
     	);              
- insert into DisciplinasCursadas(matricula, disciplina)
+ insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002325'),
@@ -947,7 +947,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002325'),
     	(select iddisciplina from disciplina where codigo = 'PJI29006') 
     	);               
- insert into DisciplinasCursadas(matricula, disciplina)
+ insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002324'),
@@ -1153,7 +1153,7 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002324'),
     	(select iddisciplina from disciplina where codigo = 'ADM29008') 
     	);               
- insert into DisciplinasCursadas(matricula, disciplina)
+ insert into disciplinascursadas(matricula, disciplina)
     	values
     	(
     	(select idmatricula from matricula where numero = '1310002320'),
@@ -1331,11 +1331,12 @@ insert into DisciplinasCursadas(matricula, disciplina)
     	(select idmatricula from matricula where numero = '1310002320'),
     	(select iddisciplina from disciplina where codigo = 'COM29007') 
     	);               
--- select * from DisciplinasCursadas;
+-- select * from disciplinascursadas;
 
 
 
 -- select * from disciplina;
+
 
 
 
