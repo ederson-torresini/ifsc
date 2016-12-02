@@ -1,17 +1,18 @@
 
+use BCD_VISUALIZA;
 
 
-use bcd;
+
 DROP TABLE IF EXISTS horario;
 DROP TABLE IF EXISTS semestre;
-DROP TABLE IF EXISTS MinistradoresDasDisciplinas;
+DROP TABLE IF EXISTS ministradoresdasdisciplinas;
 DROP TABLE IF EXISTS professor;
-DROP TABLE IF EXISTS PedidoDeMatricula;
-DROP TABLE IF EXISTS DisciplinasCursadas;
+DROP TABLE IF EXISTS pedidodematricula;
+DROP TABLE IF EXISTS disciplinascursadas;
 DROP TABLE IF EXISTS matricula;
 DROP TABLE IF EXISTS curriculo;
 DROP TABLE IF EXISTS curso;
-DROP TABLE IF EXISTS preRequisito;
+DROP TABLE IF EXISTS prerequisito;
 DROP TABLE IF EXISTS disciplina;
 DROP TABLE IF EXISTS aluno;
 DROP TABLE IF EXISTS campus;
@@ -66,16 +67,16 @@ CREATE TABLE IF NOT EXISTS disciplina(
 
 
 
-CREATE TABLE IF NOT EXISTS preRequisito(
-	idpreRequisito smallint unsigned auto_increment primary key,
+CREATE TABLE IF NOT EXISTS prerequisito(
+	idprerequisito smallint unsigned auto_increment primary key,
 	disciplina smallint unsigned not null,
-	preRequisito smallint unsigned not null,
+	prerequisito smallint unsigned not null,
 	obrigatorio boolean not null,
 	eixo boolean not null,
 	constraint fk_preRequisito_disciplina_disciplina_id
     	foreign key(disciplina) references disciplina(iddisciplina),
 	constraint fk_preRequisito_preRequisito_disciplina_id
-    	foreign key(preRequisito) references disciplina(iddisciplina)
+    	foreign key(prerequisito) references disciplina(iddisciplina)
 );
 
 
@@ -137,21 +138,21 @@ CREATE TABLE IF NOT EXISTS matricula(
 
 
 
-CREATE TABLE IF NOT EXISTS DisciplinasCursadas(
-	idDisciplinasCursadas smallint unsigned auto_increment primary key,
+CREATE TABLE IF NOT EXISTS disciplinascursadas(
+	iddisciplinascursadas smallint unsigned auto_increment primary key,
 	matricula int unsigned not null,
 	disciplina smallint unsigned not null,
 	constraint fk_disciplinasCursadas_disciplina_disciplina_id
     	foreign key(disciplina) references disciplina(iddisciplina),
-	constraint fk_disciplinaCursadas_matricula_matricula_id
+	constraint fk_disciplinacursadas_matricula_matricula_id
     	foreign key(matricula) references matricula(idmatricula),
      CONSTRAINT matricula UNIQUE(matricula, disciplina)   
 );
 
 
 
-CREATE TABLE IF NOT EXISTS PedidoDeMatricula(
-	idPedidoDeMatricula smallint unsigned auto_increment primary key,
+CREATE TABLE IF NOT EXISTS pedidodematricula(
+	idpedidodematricula smallint unsigned auto_increment primary key,
 	sessao char(32),
 	tipo tinyint unsigned not null,
 	matricula int unsigned not null,
@@ -181,8 +182,8 @@ CREATE TABLE IF NOT EXISTS professor(
 
 
 
-CREATE TABLE IF NOT EXISTS MinistradoresDasDisciplinas(
-	idMinistradoresDasDisciplinas smallint unsigned auto_increment primary key,
+CREATE TABLE IF NOT EXISTS ministradoresdasdisciplinas(
+	idministradoresdasdisciplinas smallint unsigned auto_increment primary key,
 	disciplina smallint unsigned not null,
     professor smallint unsigned not null,
 	constraint fk_ministradoresdasdisciplinas_disciplina_disciplina_id
