@@ -37,7 +37,7 @@ login = function(req, res)
     var ldapres = null;
     
     var opts = {
-        filter: '(uid=' + req.body.nome + ')',
+        filter: '(uid=' + req.body.usuario + ')',
         scope: 'sub',
     }
     
@@ -56,7 +56,7 @@ login = function(req, res)
                 {
                     console.log('Invalid username')
                     res.status(401);
-                    //res.send('<h1>401 Unauthorized.</h1>');
+                    res.send('<h1>401 Unauthorized.</h1>');
                 }
                 else
                 {
@@ -68,6 +68,7 @@ login = function(req, res)
                             {
                                 console.log('Wrong password');
                                 res.status(401);
+                                res.send('<h1>401 Unauthorized.</h1>');
                             }
                             else
                             {
@@ -83,9 +84,31 @@ login = function(req, res)
     })
 };
 
+getDisciplinas = function(req, res)
+{
+    connection.query("select codigo, nome from disciplina;",
+        function(err, rows, fields)
+        {
+            if (!err)
+            {
+console.log('row: %s', JSON.stringify(rows));
+                res.status(200);
+                //res.json(JSON.parse('{"disciplinas":' + JSON.stringify(rows) + '}'));
+                res.json(rows);
+            }
+            else
+            {
+                res.status(503);
+                res.send(err);
+            }
+        }
+    );
+};
+
 getCargaHoraria = function(req, res)
 {
     var str = getSQLFormat(req.body.disciplinas, 'codigo, CH', 'codigo', 'disciplina');
+    //var str = getSQLFormat(req.query.disciplinas, 'codigo, CH', 'codigo', 'disciplina');
 
     connection.query(str,
         function(err, rows, fields)
@@ -120,6 +143,7 @@ getCargaHoraria = function(req, res)
 getPreRequisito = function(req, res)
 {
     var str = getSQLFormat(req.body.disciplinas, '*', 'disciplina', 'v_preRequisito');
+    //var str = getSQLFormat(req.query.disciplinas, '*', 'disciplina', 'v_preRequisito');
 
 console.log('str: %s', str);
 
@@ -144,8 +168,10 @@ console.log('row: %s', JSON.stringify(rows));
 getHorarioDisciplina = function(req, res)
 {
     var str = getSQLFormat(req.body.disciplinas, '*', 'disciplina', 'v_horario');
+    //var str = getSQLFormat(req.query.disciplinas, '*', 'disciplina', 'v_horario');
 
-//console.log('str: %s', str);
+console.log('str: %s', str);
+console.log('gsdfgds: %s', JSON.stringify(req.query));
 
     connection.query(str,
         function(err, rows, fields)
@@ -181,6 +207,11 @@ exports.login = function(req, res)
     //res.status(200);
     //res.send('<h1>Login efetuado com sucesso!</h1>');
     login(req, res);
+};
+
+exports.disciplinas = function(req, res)
+{
+    getDisciplinas(req, res);
 };
 
 exports.carga_horaria = function(req, res)
