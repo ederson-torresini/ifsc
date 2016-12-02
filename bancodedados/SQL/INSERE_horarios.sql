@@ -1194,3 +1194,5 @@ insert into horario(disciplina, semestre, turno, inicio,termino,dia)
     	'15:40',
     	'5'
 ); 
+
+
