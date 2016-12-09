@@ -15,17 +15,17 @@
                 ];
                 var ContadorDisciplinasComChoque = 0;
                 var retHora,index,h1,h2 ;
-
+				var DisciplinaSelecionada;
                 jQuery(".ck_materia").click(function() {   // Funcao CheckBox
                     var contentPanelId = jQuery(this).attr("id");
                     if ($("#" + contentPanelId).is(':checked')) { // # se refere a ID
-                         console.log("teste: " + ContadorDisciplinasComChoque);
+						 DisciplinaSelecionada = contentPanelId + funcaoRetornaSemestreDisciplina(contentPanelId);
+						 console.log(DisciplinaSelecionada);
                          ContadorDisciplinasSelecionadas++;
                          retHora = retornaHora(items, contentPanelId);
                          index = retHora.indexOf(",");
                          h1 = retHora.substr(0, index);
                          h2 = retHora.substr(index + 1);
-                         console.log(h1 + h2);
                         if ($("#" + h1).text().trim().length) { // Testa se ja tem um texto salvo. Assim, indicando choque.
                            // alert("CHOQUE DE HORARIO " + $("#" + h1).text() + " E " + contentPanelId);
                             if($("#" + h1).text() != "CHOQUE")
@@ -61,17 +61,13 @@
                                 $("#" + h2).text(contentPanelId);
                             }
                         }
-                        console.log("teste: " + ContadorDisciplinasComChoque);
                     } else {
-                        ContadorDisciplinasSelecionadas++;
                         retHora = retornaHora(items, contentPanelId);
                         index = retHora.indexOf(",");
                         h1 = retHora.substr(0, index);
                         h2 = retHora.substr(index + 1);
                         var NumeroItensParaEliminar = 0;
                         var VetorPosicoesParaEliminar = [];
-                        console.log(VetorContedoDisciplinasComChoque.length);
-
                         if ($("#" + h1).text() === "CHOQUE") {
                             for (var i = 0; i <VetorContedoDisciplinasComChoque.length; i++) {
 
@@ -121,7 +117,6 @@
                                         }
                                     }
                                 }
-
                                 funcaoEliminaChoqueDaLista();
                             }
                             else {
@@ -131,13 +126,10 @@
                         if (ContadorDisciplinasSelecionadas > 0) {
                             ContadorDisciplinasSelecionadas--;
                         }
-
                         function funcaoEliminaChoqueDaLista() {
                             for(var i = 0 ; i< NumeroItensParaEliminar; i ++)
                             {
-                                console.log(VetorContedoDisciplinasComChoque[VetorPosicoesParaEliminar[i]]);
                                 VetorContedoDisciplinasComChoque[VetorPosicoesParaEliminar[NumeroItensParaEliminar]] = [];
-                                console.log(VetorContedoDisciplinasComChoque[VetorPosicoesParaEliminar[NumeroItensParaEliminar]]);
                                 if (ContadorDisciplinasComChoque > 0) {
                                     ContadorDisciplinasComChoque--;
                                 }
@@ -145,15 +137,27 @@
 
                         }
                     }
+					if(ContadorDisciplinasSelecionadas === 1)
+					{
+						document.getElementById("Pedido").disabled = false;
+						RecebedoHTMLJson(DisciplinaSelecionada);
+					}else
+					{
 
-                    if(ContadorDisciplinasSelecionadas === 1)
-                    {
-                        document.getElementById("Pedido").disabled = false;
-                    }else
-                    {
-                        document.getElementById("Pedido").disabled = true;
-                    }
+						document.getElementById("Pedido").disabled = true;
+
+					}
                 });
+
+				if(ContadorDisciplinasSelecionadas === 1)
+				{
+					document.getElementById("Pedido").disabled = false;
+					RecebedoHTMLJson(DisciplinaSelecionada);
+				}else
+				{
+
+					document.getElementById("Pedido").disabled = true;
+				}
                 function retornaHora(horarios, disciplina) {
                     var arrayLength = horarios.length;
                     for (var i = 0; i < arrayLength; i++) {
@@ -162,6 +166,104 @@
                         }
                     }
                 }
+
+				function funcaoRetornaSemestreDisciplina(dis)
+				{
+					var codigo;
+					switch (dis)
+					{
+						case "DES":
+						case "CAL1":
+						case "FSC1":
+						case "ELI":
+						case "GAL":
+						case "LOG":
+						case "PJI1":
+							codigo = "290001";
+								break;
+
+						case "QMC1":
+						case "CAL2":
+						case "FSC2":
+						case "CIE1":
+						case "ALG":
+						case "PRG1":
+							codigo = "290002";
+							break;
+
+						case "QMC2":
+						case "CAL3":
+						case "CIE2":
+						case "ELA1":
+						case "CIL":
+						case "PRG2":
+							codigo = "290003";
+							break;
+
+						case "MEC":
+						case "CAL4":
+						case "RED1":
+						case "ELA2":
+						case "MIC":
+						case "POO":
+							codigo = "290004";
+							break;
+
+						case "MPQ":
+						case "EST":
+						case "RED2":
+						case "FSC3":
+						case "SOP":
+						case "SIS1":
+							codigo = "290005";
+							break;
+
+						case "FEN":
+						case "PRE":
+						case "ANT":
+						case "STD":
+						case "DLP1":
+						case "SIS2":
+						case "PJI2":
+							codigo = "290006";
+							break;
+
+						case "PTG":
+						case "RTX":
+						case "MTG":
+						case "DLP2":
+						case "PSD":
+						case "COM1":
+							codigo = "290007";
+							break;
+
+						case "ADM":
+						case "CSF":
+						case "BCD":
+						case "STE":
+						case "PTC":
+						case "COM2":
+						case "PJI3":
+							codigo = "290008";
+							break;
+
+						case "ECO":
+						case "SUS":
+						case "SMU":
+						case "ADS":
+						case "STC":
+						case "CRF":
+							codigo = "290009";
+							break;
+
+						case "TCC2":
+							codigo = "290010";
+							break;
+						default:
+							break;
+					}
+					return codigo;
+				}
 
             });
         </script>
@@ -240,6 +342,7 @@
 			<h3>2&ordm; Semestre</h3>
 			<table>
 				<tr>
+
 					<input type="checkbox" class="ck_materia" id="QMC1" value="Bike">
 					QUÍMICA GERAL
 				</tr>
@@ -270,6 +373,7 @@
 			<h3>3&ordm; Semestre</h3>
 			<table>
 				<tr>
+
 					<input type="checkbox" class="ck_materia" id="QMC2" value="Bike">
 					CIÊNCIA E TECNOLOGIA DOS MATERIAIS
 				</tr>
@@ -327,6 +431,7 @@
 		<div id="5" class="tabcontent">
 			<h3>5&ordm; Semestre</h3>
             <table>
+
                 <tr>
                     <input type="checkbox" class="ck_materia" id="MPQ" value="Bike">
                     METODOLOGIA DE PESQUISA
@@ -356,6 +461,7 @@
 		<div id="6" class="tabcontent">
 			<h3>6&ordm; Semestre</h3>
             <table>
+
                 <tr>
                     <input type="checkbox" class="ck_materia" id="FEN" value="Bike">
                     FENÔMENOS DE TRANSPORTE
@@ -389,6 +495,7 @@
 		<div id="7" class="tabcontent">
 			<h3>7&ordm; Semestre</h3>
             <table>
+
                 <tr>
                     <input type="checkbox" class="ck_materia" id="PTG" value="Bike">
                     COMUNICAÇÃO E EXPRESSÃO
@@ -418,6 +525,7 @@
 		<div id="8" class="tabcontent">
 			<h3>8&ordm; Semestre</h3>
             <table>
+
                 <tr>
                     <input type="checkbox" class="ck_materia" id="ADM" value="Bike">
                     ADMINISTRAÇÃO PARA ENGENHARIA

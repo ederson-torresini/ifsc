@@ -1,6 +1,7 @@
 
 
-
+var Validacao;
+var Codigo;
 var VetorTabelaHorarios = [
         ["CAL1", "a1,a6"], ["FSC1", "a2,a6"], ["GAL", "a1,a1"], ["DES", "a16,a16"],["ELI", "a18,b18"]
         // ["CAL1", "a1,a6"], ["FSC1", "a2,a3"], ["GAL", "a18,a17"], ["DES", "a16,a16"],["ELI", "a18,b18"],
@@ -74,7 +75,7 @@ var JsonHorarioDisciplinasFase1 = {
         ]
 }
 
-var requestURL = 'https://200.135.37.74/js/horariodisciplina';
+var requestURL = '/js/horariodisciplina';
 var request = new XMLHttpRequest();
 request.open('POST', requestURL);
 request.setRequestHeader('Content-Type', 'application/json');
@@ -194,28 +195,29 @@ request.onload = function() {
 }
 
 function ProcuraDisicplinaSelecionada() {
-    var TabelaSemestre = document.getElementsByClassName("tablinks");
-    for (i = 0; i < TabelaSemestre.length; i++) {
+
+    for (var i = 0; i < TabelaSemestre.length; i++) {
         if (TabelaSemestre[i].className === "active") {
-            alert("Uma disciplina");
+            console.log("oi2");
             break;
         }
     }
 }
-
+function RecebedoHTMLJson(DisParaValidar)
+{
+    Codigo = DisParaValidar;
+    Validacao =
+    {
+        "disciplinas": [
+            {
+                "codigo": Codigo
+            },
+        ]
+    }
+}
 function reply_clickPedidoSalvar() {
     if (event.srcElement.id === "Pedido") {
-
-        // Montar JSON com a disciplina validada
-        // var Validacao =
-        // {
-        //     "disciplinas": [
-        //         {
-        //             "codigo": "DES29001"
-        //         },
-        //     ]
-        // }
-
+        console.log(JSON.stringify(Validacao));
         var requestValidacao = new XMLHttpRequest();
         requestValidacao.open('POST', requestURL);
         requestValidacao.setRequestHeader('Content-Type', 'application/json');
