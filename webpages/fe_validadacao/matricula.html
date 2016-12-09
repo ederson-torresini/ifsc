@@ -4,42 +4,167 @@
 		<link rel="stylesheet" type="text/css" media="all" href="style.css" />
 		<script src="sj.js"></script>
 		<script src="jquery.js"></script>
-		<script>
-			$(document).ready(function() {
-				var items = [["CAL1", "a1,a6"], ["FSC1", "a2,a3"], ["GAL", "a18,a17"], ["DES", "a16,a16"],["ELI", "a18,b18"]];
-				console.log(JSON.stringify(items));
+        <script>
+            $(document).ready(function() {
+                var ContadorDisciplinasSelecionadas = 0;
+                var items = EnviaVetorDeDisciplinaComHorario();
+                var VetorContedoDisciplinasComChoque = [
+                        [], // disciplina 1
+                        [], // disciplina 2
+                        [] // posicao tabela
+                ];
+                var ContadorDisciplinasComChoque = 0;
+                var retHora,index,h1,h2 ;
 
-				jQuery(".ck_materia").click(function() {
-					var contentPanelId = jQuery(this).attr("id");
-					console.log(contentPanelId);
-					if ($("#" + contentPanelId).is(':checked')) {
-						var retHora = retornaHora(items, contentPanelId);
-						var index = retHora.indexOf(",");
-						var h1 = retHora.substr(0, index);
-						var h2 = retHora.substr(index + 1);
-						$("#" + h1).text(contentPanelId);
-						$("#" + h2).text(contentPanelId);
-					} else {
-						var retHora = retornaHora(items, contentPanelId);
-						var index = retHora.indexOf(",");
-						var h1 = retHora.substr(0, index);
-						var h2 = retHora.substr(index + 1);
-						$("#" + h1).text("");
-						$("#" + h2).text("");
-					}
-					console.log(retornaHora(items,contentPanelId));
-				});
+                jQuery(".ck_materia").click(function() {   // Funcao CheckBox
+                    var contentPanelId = jQuery(this).attr("id");
+                    if ($("#" + contentPanelId).is(':checked')) { // # se refere a ID
+                         console.log("teste: " + ContadorDisciplinasComChoque);
+                         ContadorDisciplinasSelecionadas++;
+                         retHora = retornaHora(items, contentPanelId);
+                         index = retHora.indexOf(",");
+                         h1 = retHora.substr(0, index);
+                         h2 = retHora.substr(index + 1);
+                         console.log(h1 + h2);
+                        if ($("#" + h1).text().trim().length) { // Testa se ja tem um texto salvo. Assim, indicando choque.
+                           // alert("CHOQUE DE HORARIO " + $("#" + h1).text() + " E " + contentPanelId);
+                            if($("#" + h1).text() != "CHOQUE")
+                            {
+                                VetorContedoDisciplinasComChoque[ContadorDisciplinasComChoque] [0] = $("#" + h1).text();
+                                VetorContedoDisciplinasComChoque[ContadorDisciplinasComChoque] [1] = contentPanelId;
+                                VetorContedoDisciplinasComChoque[ContadorDisciplinasComChoque] [2] = h1;
+                                ContadorDisciplinasComChoque++;
+                                $("#" + h1).text("CHOQUE");
+                                $("#" + h1).css('color', 'red');
+                            }
+                        }
+                        else
+                        {
+                            $("#" + h1).text(contentPanelId);
+                        }
+                        if(h1!=h2)
+                        {
+                            if ($("#" + h2).text().trim().length) {
+                               // alert("CHOQUE DE HORARIO " + $("#" + h2).text() + " E " + contentPanelId);
+                                if($("#" + h2).text() != "CHOQUE")
+                                {
+                                    VetorContedoDisciplinasComChoque[ContadorDisciplinasComChoque] [0] = $("#" + h2).text();
+                                    VetorContedoDisciplinasComChoque[ContadorDisciplinasComChoque] [1] = contentPanelId;
+                                    VetorContedoDisciplinasComChoque[ContadorDisciplinasComChoque] [2] = h2;
+                                    ContadorDisciplinasComChoque++;
+                                    $("#" + h2).text("CHOQUE");
+                                    $("#" + h2).css('color', 'red');
+                                }
+
+                            }
+                            else {
+                                $("#" + h2).text(contentPanelId);
+                            }
+                        }
+                        console.log("teste: " + ContadorDisciplinasComChoque);
+                    } else {
+                        ContadorDisciplinasSelecionadas++;
+                        retHora = retornaHora(items, contentPanelId);
+                        index = retHora.indexOf(",");
+                        h1 = retHora.substr(0, index);
+                        h2 = retHora.substr(index + 1);
+                        var NumeroItensParaEliminar = 0;
+                        var VetorPosicoesParaEliminar = [];
+                        console.log(VetorContedoDisciplinasComChoque.length);
+
+                        if ($("#" + h1).text() === "CHOQUE") {
+                            for (var i = 0; i <VetorContedoDisciplinasComChoque.length; i++) {
+
+                                if(h1 === VetorContedoDisciplinasComChoque[i][2])
+                                {
+                                    if(VetorContedoDisciplinasComChoque[i][0]  === contentPanelId || VetorContedoDisciplinasComChoque[i][1]  === contentPanelId)
+                                    {
+                                        if(VetorContedoDisciplinasComChoque[i][0]  === contentPanelId)
+                                        {
+                                            $("#" + h1).text(VetorContedoDisciplinasComChoque[i][1]);
+                                        }
+                                        else
+                                        {
+                                            $("#" + h1).text( VetorContedoDisciplinasComChoque[i][0]);
+                                        }
+                                        $("#" + h1).css('color', 'black');
+                                        NumeroItensParaEliminar++
+                                        VetorPosicoesParaEliminar[NumeroItensParaEliminar] = i;
+                                    }
+                                }
+                                funcaoEliminaChoqueDaLista();
+                            }
+                        }
+                        else {
+                            $("#" + h1).text("");
+                        }
+                        if(h1!=h2)
+                        {
+                            if ($("#" + h2).text() === "CHOQUE") {
+                                for (var i = 0; i <VetorContedoDisciplinasComChoque.length; i++) {
+                                    if (h2 === VetorContedoDisciplinasComChoque[i][2])
+                                    {
+                                        if(VetorContedoDisciplinasComChoque[i][0]  === contentPanelId || VetorContedoDisciplinasComChoque[i][1]  === contentPanelId)
+                                        {
+                                            if(VetorContedoDisciplinasComChoque[i][0]  === contentPanelId)
+                                            {
+                                                $("#" + h2).text(VetorContedoDisciplinasComChoque[i][1]);
+
+                                            }
+                                            else
+                                            {
+                                                $("#" + h2).text( VetorContedoDisciplinasComChoque[i][0]);
+                                            }
+                                            $("#" + h2).css('color', 'black');
+                                            NumeroItensParaEliminar++
+                                            VetorPosicoesParaEliminar[NumeroItensParaEliminar] = i;
+                                        }
+                                    }
+                                }
+
+                                funcaoEliminaChoqueDaLista();
+                            }
+                            else {
+                                $("#" + h2).text("");
+                            }
+                        }
+                        if (ContadorDisciplinasSelecionadas > 0) {
+                            ContadorDisciplinasSelecionadas--;
+                        }
+
+                        function funcaoEliminaChoqueDaLista() {
+                            for(var i = 0 ; i< NumeroItensParaEliminar; i ++)
+                            {
+                                console.log(VetorContedoDisciplinasComChoque[VetorPosicoesParaEliminar[i]]);
+                                VetorContedoDisciplinasComChoque[VetorPosicoesParaEliminar[NumeroItensParaEliminar]] = [];
+                                console.log(VetorContedoDisciplinasComChoque[VetorPosicoesParaEliminar[NumeroItensParaEliminar]]);
+                                if (ContadorDisciplinasComChoque > 0) {
+                                    ContadorDisciplinasComChoque--;
+                                }
+                            }
+
+                        }
+                    }
+
+                    if(ContadorDisciplinasSelecionadas === 1)
+                    {
+                        document.getElementById("Pedido").disabled = false;
+                    }else
+                    {
+                        document.getElementById("Pedido").disabled = true;
+                    }
+                });
                 function retornaHora(horarios, disciplina) {
                     var arrayLength = horarios.length;
                     for (var i = 0; i < arrayLength; i++) {
-                        //console.log(horarios[i]);
                         if (horarios[i][0] == disciplina) {
                             return horarios[i][1];
                         }
                     }
                 }
-			});
-		</script>
+
+            });
+        </script>
 	</head>
 	<body>
 		<ul class="tab">
@@ -461,7 +586,7 @@
 		</div>
          <div class="form_container">
         <!--<div class="form_container" style="display: none;" id = "hidden_div">-->
-           <p>Listar disciplinas para iniciar o processo de validação:</p>
+           <p>Listar disciplinas cursadas usadas para iniciar o processo de validação:</p>
             <form>
                 <label for="d">
                     <span>Disciplina 1</span>
@@ -493,10 +618,13 @@
                 </label>
             </form>
         </div>
-        <button> Gerar Pedido </button>
-        <button> Salvar Sessão </button>
+        <button id="Pedido" onClick="reply_clickPedidoSalvar()"> Gerar Pedido </button>
+        <button id="Salvar" onClick="reply_clickPedidoSalvar()"> Salvar Sessão </button>
 	</body>
 	<script>
 		document.getElementById("defaultOpen").click();
+
+
+
 	</script>
 </html>
