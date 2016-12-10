@@ -222,6 +222,7 @@ CREATE TABLE IF NOT EXISTS horario(
 	inicio time not null,
 	termino time not null,
 	turno varchar(16) not null,
+	semana varchar(2) not null,
 	dia smallint not null,
 	constraint fk_horario_disciplina_disciplina_id
     	foreign key(disciplina) references disciplina(iddisciplina),
