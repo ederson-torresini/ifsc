@@ -14,6 +14,8 @@ var client = ldap.createClient({
   url: 'ldap://200.135.37.118'
 });
 
+var crypto = require('crypto');
+
 //////
 
 getSQLFormat = function(disciplinas, colunas, coluna_where, tabela)
@@ -73,8 +75,29 @@ login = function(req, res)
                             else
                             {
                                 console.log('You are logged')
-                                res.status(200);
-                                res.sendFile('/var/www/html/fe_matricula/matricula.html', '{dotfiles=allow}');
+                                str = 'select matricula from v_matricula where ldap = \'' + req.body.usuario + '\';'
+                                connection.query(str,
+                                    function(erro, rows, fields)
+                                    {
+                                        if (!erro)
+                                        {
+                                            res.status(200);
+                                            data = JSON.stringify(rows);
+                                            cookie = crypto.createHash("sha256").update(data).digest("base64");
+                                            console.log('row: %s', data);
+                                            console.log('cookie: %s', cookie);
+                                            res.cookie('cookie', cookie, { secure:true, maxAage:120000, httpOnly: true, expires: new Date(Date.now() + 900000) });
+                                            res.json(rows);
+                                            //res.sendFile('/var/www/html/fe_matricula/matricula.html', '{dotfiles=allow}');
+                                        }
+                                        else
+                                        {
+                                            res.status(503);
+                                            res.send(erro);
+                                        }
+                                    }
+                                );
+
                             }
                         }
                     )
