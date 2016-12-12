@@ -2,6 +2,9 @@ var express = require('express');
 var myParser = require("body-parser");
 var app = express();
 var router = require('./routes/index')
+var cookieParser = require('cookie-parser')
+
+app.use(cookieParser());
 
 //support parsing of application/json type post data
 app.use(myParser.json());
@@ -30,6 +33,7 @@ app.post('/js/disciplinas', router.disciplinas).all('/js/disciplinas', methodNot
 app.post('/js/carga-horaria', router.carga_horaria).all('/js/carga-horaria', methodNotAllowed);
 app.post('/js/pre-requisito', router.pre_requisito).all('/js/pre-requisito', methodNotAllowed);
 app.post('/js/horariodisciplina', router.horariodisciplina).all('/js/horariodisciplina', methodNotAllowed);
+app.post('/js/matricula', router.matricula).all('/js/matricula', methodNotAllowed);
 
 
 var server = app.listen(3000);

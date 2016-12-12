@@ -5,7 +5,8 @@ var connection = mysql.createConnection
 		host     : 'localhost',
 		user     : 'root',
 		password : 'engtelecom123',
-		database : 'bcd'
+		database : 'bcd',
+        multipleStatements: true
 	}
 );
 
@@ -86,7 +87,7 @@ login = function(req, res)
                                             cookie = crypto.createHash("sha256").update(data).digest("base64");
                                             console.log('row: %s', data);
                                             console.log('cookie: %s', cookie);
-                                            res.cookie('cookie', cookie, { secure:true, maxAage:120000, httpOnly: true, expires: new Date(Date.now() + 900000) });
+                                            res.cookie('cookie', cookie, {secure:true, maxAage:120000, httpOnly: true});
                                             res.json(rows);
                                             //res.sendFile('/var/www/html/fe_matricula/matricula.html', '{dotfiles=allow}');
                                         }
@@ -217,6 +218,33 @@ console.log('row: %s', JSON.stringify(rows));
 };
 
 
+setMatricula = function(req, res)
+{
+    var str = '';
+    var disciplinas = req.body.disciplinas;
+    for (i in disciplinas)
+    {
+        str += "insert into pedidodematricula(sessao, tipo, matricula, disciplina) values ('" + req.cookies.cookie + "', '1', (select idmatricula from matricula where numero = '" + req.body.matricula + "'), (select iddisciplina from disciplina where codigo = '" + disciplinas[i].codigo + "'));";
+
+    }
+
+    connection.query(str,
+        function(err, rows, fields)
+        {
+            if (!err)
+            {
+                res.status(200);
+                res.send(rows);
+            }
+            else
+            {
+                res.status(503);
+                res.send(err);
+            }
+        }
+    );
+};
+
 
 
 //
@@ -250,4 +278,9 @@ exports.pre_requisito = function(req, res)
 exports.horariodisciplina = function(req, res)
 {
     getHorarioDisciplina(req, res);
+};
+
+exports.matricula = function(req, res)
+{
+    setMatricula(req, res);
 };
