@@ -227,3 +227,28 @@ WHERE(disciplinas_elegiveis.disciplina=disciplina.iddisciplina AND disciplinas_e
 
 select * from disciplinas_elegiveis_pretty;
 
+-- Pre-requisito no formato final
+
+drop view prerequisito_tmp;
+
+CREATE VIEW prerequisito_tmp AS
+
+select  prerequisito.disciplina , disciplina.codigo
+from prerequisito
+inner join disciplina
+on (prerequisito.preRequisito = disciplina.iddisciplina);
+
+select * from prerequisito_tmp;
+
+
+
+drop view prerequisito_pretty;
+
+CREATE VIEW prerequisito_pretty AS
+
+select  disciplina.codigo, prerequisito_tmp.codigo as codigopr
+from prerequisito_tmp
+inner join disciplina
+on (prerequisito_tmp.disciplina = disciplina.iddisciplina);
+
+select * from prerequisito_pretty;
