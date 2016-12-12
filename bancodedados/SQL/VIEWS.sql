@@ -236,7 +236,7 @@ CREATE VIEW prerequisito_tmp AS
 select  prerequisito.disciplina , disciplina.codigo
 from prerequisito
 inner join disciplina
-on (prerequisito.preRequisito = disciplina.iddisciplina);
+on (prerequisito.preRequisito = disciplina.iddisciplina and prerequisito.obrigatorio = 1);
 
 select * from prerequisito_tmp;
 
