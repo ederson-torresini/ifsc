@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ifsc
 Projeto desenvolvido na disciplina de [Banco de Dados](http://wiki.sj.ifsc.edu.br/wiki/index.php/Cronograma_de_atividades_(BCD-EngTel)#2016-2) do Curso de Engenharia de Telecomunicações do IFSC câmpus São José - segundo semestre de 2016.
 
@@ -15,3 +16,10 @@ Projeto desenvolvido na disciplina de [Banco de Dados](http://wiki.sj.ifsc.edu.b
 - [Stephany](https://github.com/Stephany3pg/BCD)
 - [Vinicius](https://github.com/vinicius-b/ifsc/tree/BCD20162)
 - [Walter](https://github.com/vbrake/bcd/tree/der)
+=======
+ls# bcd20162 Projeto desenvolvido na disciplina de [Banco de 
+Dados](http://wiki.sj.ifsc.edu.br/wiki/index.php/Cronograma_de_atividades_(BCD-EngTel)#2016-2) 
+do Curso de Engenharia de Telecomunicações do IFSC câmpus São José - 
+segundo semestre de 2016.
+ 
+>>>>>>> remotes/bcd20162/bcd20162/master

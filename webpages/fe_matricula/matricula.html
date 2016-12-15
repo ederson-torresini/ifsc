@@ -1,0 +1,477 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+		<script src="sj.js"></script>
+		<script src="jquery.js"></script>
+		<script>
+			$(document).ready(function() {
+				var items = [["CAL1", "a1,a6"], ["FSC1", "a2,a3"], ["GAL", "a18,a17"], ["DES", "a16,a16"],["ELI", "a18,b18"]];
+				console.log(JSON.stringify(items));
+
+				jQuery(".ck_materia").click(function() {
+					var contentPanelId = jQuery(this).attr("id");
+					console.log(contentPanelId);
+					if ($("#" + contentPanelId).is(':checked')) {
+						var retHora = retornaHora(items, contentPanelId);
+						var index = retHora.indexOf(",");
+						var h1 = retHora.substr(0, index);
+						var h2 = retHora.substr(index + 1);
+						$("#" + h1).text(contentPanelId);
+						$("#" + h2).text(contentPanelId);
+					} else {
+						var retHora = retornaHora(items, contentPanelId);
+						var index = retHora.indexOf(",");
+						var h1 = retHora.substr(0, index);
+						var h2 = retHora.substr(index + 1);
+						$("#" + h1).text("");
+						$("#" + h2).text("");
+					}
+					console.log(retornaHora(items,contentPanelId));
+				});
+				function retornaHora(horarios, disciplina) {
+					var arrayLength = horarios.length;
+					for (var i = 0; i < arrayLength; i++) {
+						//console.log(horarios[i]);
+						if (horarios[i][0] == disciplina) {
+							return horarios[i][1];
+						}
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+	<ul class="tab">
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '1')" id="defaultOpen">1&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '2')">2&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '3')">3&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '4')">4&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '5')">5&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '6')">6&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '7')">7&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '8')">8&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '9')">9&ordm;</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '10')">10&ordm;</a>
+		</li>
+	</ul>
+
+	<div id="1" class="tabcontent">
+		<h3>1&ordm; Semestre</h3>
+		<p>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="DES" value="Bike">
+				DESENHO TÉCNICO
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CAL1" value="CAL I">
+				CÁLCULO I
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="FSC1" value="CAL I">
+				FÍSICA I
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="ELI" value="CAL I">
+				ELETRICIDADE E INSTRUMENTAÇAO
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="GAL" value="CAL I">
+				GEOMETRIA ANALITICA
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="LOG" value="CAL I">
+				LOGICA
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="PJI1" value="CAL I">
+				PROJETO INTEGRADOR I
+			</tr>
+		</table>
+		</p>
+	</div>
+
+	<div id="2" class="tabcontent">
+		<h3>2&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="QMC1" value="Bike">
+				QUÍMICA GERAL
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CAL2" value="CAL I">
+				CÁLCULO II
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="FSC2" value="CAL I">
+				FÍSICA II
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="CIE1" value="CAL I">
+				CIRCUITOS ELÉTRICOS I
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="ALG" value="CAL I">
+				ÁLGEBRA LINEAR
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PRG1" value="CAL I">
+				PROGRAMAÇÃO I
+			</tr>
+		</table>
+	</div>
+
+	<div id="3" class="tabcontent">
+		<h3>3&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="QMC2" value="Bike">
+				CIÊNCIA E TECNOLOGIA DOS MATERIAIS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CAL3" value="CAL I">
+				CÁLCULO III
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="CIE2" value="CAL I">
+				CIRCUITOS ELÉTRICOS II
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="ELA1" value="CAL I">
+				ELETRÔNICA I
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CIL" value="CAL I">
+				CIRCUITOS LÓGICOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PRG2" value="CAL I">
+				PROGRAMAÇÃO II
+			</tr>
+		</table>
+	</div>
+	<div id="4" class="tabcontent">
+		<h3>4&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="MEC" value="Bike">
+				MECÂNICA DOS SÓLIDOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CAL4" value="CAL I">
+				CÁLCULO IV (PARA TELECOMUNICAÇÕES)
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="RED1" value="CAL I">
+				REDES DE COMPUTADORES I
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="ELA2" value="CAL I">
+				ELETRÔNICA II
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="MIC" value="CAL I">
+				MICROPROCESSADORES
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="POO" value="CAL I">
+				PROGRAMAÇÃO ORIENTADA A OBJETOS
+			</tr>
+		</table>
+	</div>
+	<div id="5" class="tabcontent">
+		<h3>5&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="MPQ" value="Bike">
+				METODOLOGIA DE PESQUISA
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="EST" value="CAL I">
+				ESTATÍSTICA E PROBABILIDADE
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="RED2" value="CAL I">
+				REDES DE COMPUTADORES II
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="FSC3" value="CAL I">
+				FÍSICA III
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="SOP" value="CAL I">
+				SISTEMAS OPERACIONAIS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="SIS1" value="CAL I">
+				SINAIS E SISTEMAS I
+			</tr>
+		</table>
+	</div>
+	<div id="6" class="tabcontent">
+		<h3>6&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="FEN" value="Bike">
+				FENÔMENOS DE TRANSPORTE
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PRE" value="CAL I">
+				PROCESSOS ESTOCÁSTICOS
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="ANT" value="CAL I">
+				ANTENAS E PROPAGAÇÃO
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="STD" value="CAL I">
+				SISTEMAS DISTRIBUÍDOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="DLP1" value="CAL I">
+				DISPOSITIVOS LÓGICOS PROGRAMÁVEIS I
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="SIS2" value="CAL I">
+				SINAIS E SISTEMAS II
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PJI2" value="CAL I">
+				PROJETO INTEGRADOR II
+			</tr>
+		</table>
+	</div>
+	<div id="7" class="tabcontent">
+		<h3>7&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="PTG" value="Bike">
+				COMUNICAÇÃO E EXPRESSÃO
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="RTX" value="CAL I">
+				REDES DE TRANSMISSÃO
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="MTG" value="CAL I">
+				MEIOS DE TRANSMISSÃO GUIADOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="DLP2" value="CAL I">
+				DISPOSITIVOS LÓGICOS PROGRAMÁVEIS II
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PSD" value="CAL I">
+				PROCESSAMENTO DE SINAIS DIGITAIS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="COM1" value="CAL I">
+				SISTEMAS DE COMUNICAÇÃO 1
+			</tr>
+		</table>
+	</div>
+	<div id="8" class="tabcontent">
+		<h3>8&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="ADM" value="Bike">
+				ADMINISTRAÇÃO PARA ENGENHARIA
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CSF" value="CAL I">
+				COMUNICAÇÕES SEM FIO
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="BCD" value="CAL I">
+				BANCOS DE DADOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="STE" value="CAL I">
+				SISTEMAS EMBARCADOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PTC" value="CAL I">
+				PROJETO DE PROTOCOLOS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="COM2" value="CAL I">
+				SISTEMAS DE COMUNICAÇÃO 2
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="PJI3" value="CAL I">
+				PROJETO INTEGRADOR III
+			</tr>
+		</table>
+	</div>
+	<div id="9" class="tabcontent">
+		<h3>9&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia" id="ECO" value="Bike">
+				ECONOMIA PARA ENGENHARIA
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="SUS" value="CAL I">
+				ENGENHARIA E SUSTENTABILIDADE
+			</tr>
+			<tr>
+				<input type="checkbox"  class="ck_materia" id="SMU" value="CAL I">
+				SISTEMAS MULTIMÍDIA
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="ADS" value="CAL I">
+				AVALIAÇÃO DE DESEMPENHO DE SISTEMAS
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="STC" value="CAL I">
+				SISTEMAS DE TELECOMUNICAÇÃO
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="CRF" value="CAL I">
+				CIRCUITOS DE RÁDIO-FREQUÊNCIA
+			</tr>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="TCC1" value="CAL I">
+				TRABALHO DE CONCLUSÃO DE CURSO I
+			</tr>
+		</table>
+	</div>
+	<div id="10" class="tabcontent">
+		<h3>10&ordm; Semestre</h3>
+		<table>
+			<tr>
+				<input type="checkbox" class="ck_materia"  id="TCC2" value="CAL I">
+				TRABALHO DE CONCLUSÃO DE CURSO II
+			</tr>
+			<tr></tr>
+		</table>
+	</div>
+
+		<div class="table_container">
+			<table class="table_sem_b">
+				<tr>
+					<th>Semana A</th>
+					<th>Segunda</th>
+					<th>Terça</th>
+					<th>Quarta</th>
+					<th>Quinta</th>
+					<th>Sexta</th>
+				</tr>
+				<tr>
+					<td>7:30</td>
+					<td id="a1"></td>
+					<td id="a2"></td>
+					<td id="a3"></td>
+					<td id="a4"></td>
+					<td id="a5"></td>
+				</tr>
+				<tr>
+					<td>9:40</td>
+					<td id="a6"></td>
+					<td id="a7"></td>
+					<td id="a8"></td>
+					<td id="a9"></td>
+					<td id="a10"></td>
+				</tr>
+				<tr>
+					<td>13:30</td>
+					<td id="a11"></td>
+					<td id="a12"></td>
+					<td id="a13"></td>
+					<td id="a14"></td>
+					<td id="a15"></td>
+				</tr>
+				<tr>
+					<td>15:40</td>
+					<td id="a16"></td>
+					<td id="a17"></td>
+					<td id="a18"></td>
+					<td id="a19"></td>
+					<td id="a20"></td>
+				</tr>
+				<tr>
+
+				</tr>
+				<tr>
+
+				</tr>
+			</table>
+			<table class="table_sem_b">
+				<tr>
+					<th>Semana B</th>
+					<th>Segunda</th>
+					<th>Terça</th>
+					<th>Quarta</th>
+					<th>Quinta</th>
+					<th>Sexta</th>
+				</tr>
+				<tr>
+					<td>7:30</td>
+					<td id="b1"></td>
+					<td id="b2"></td>
+					<td id="b3"></td>
+					<td id="b4"></td>
+					<td id="b5"></td>
+				</tr>
+				<tr>
+					<td>9:40</td>
+					<td id="b6"></td>
+					<td id="b7"></td>
+					<td id="b8"></td>
+					<td id="b9"></td>
+					<td id="b10"></td>
+				</tr>
+				<tr>
+					<td>13:30</td>
+					<td id="b11"></td>
+					<td id="b12"></td>
+					<td id="b13"></td>
+					<td id="b14"></td>
+					<td id="b15"></td>
+				</tr>
+				<tr>
+					<td>15:40</td>
+					<td id="b16"></td>
+					<td id="b17"></td>
+					<td id="b18"></td>
+					<td id="b19"></td>
+					<td id="b20"></td>
+				</tr>
+				<tr>
+
+				</tr>
+				<tr>
+
+				</tr>
+			</table>
+			<div>
+				<button type="button" class="btn">
+					Enviar
+				</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		document.getElementById("defaultOpen").click();
+	</script>
+</html>
