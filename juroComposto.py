@@ -8,8 +8,8 @@ montante = total - entrada
 
 meses = []
 
-
-meses.append(montante * juro)
+if (len(meses) == 0):
+    meses.append(montante * juro)
 print("Mês 1: " + str(round(meses[0], 2)))
 
 meses.append(meses[0] * juro)
