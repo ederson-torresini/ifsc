@@ -6,20 +6,20 @@ parcelas = 4
 montante = total - entrada
 
 
+meses = []
 
 
+meses.append(montante * juro)
+print("Mês 1: " + str(round(meses[0], 2)))
 
-mes1 = montante * juro
-print("Mês 1: " + str(round(mes1, 2)))
+meses.append(meses[0] * juro)
+print("Mês 2: " + str(round(meses[1], 2)))
 
-mes2 = mes1 * juro
-print("Mês 2: " + str(round(mes2, 2)))
+meses.append(meses[1] * juro)
+print("Mês 3: " + str(round(meses[2], 2)))
 
-mes3 = mes2 * juro
-print("Mês 3: " + str(round(mes3, 2)))
+meses.append(meses[2] * juro)
+print("Mês 4: " + str(round(meses[3], 2)))
 
-mes4 = mes3 * juro
-print("Mês 4: " + str(round(mes4, 2)))
-
-parcela = mes4 / 4
+parcela = meses[3] / 4
 print("Parcela: " + str(round(parcela, 2)))
