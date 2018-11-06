@@ -1,4 +1,4 @@
-import biblioteca
+import classe
 total = 800.0
 entrada = 0.0
 juro = 1.02
@@ -20,6 +20,6 @@ montante = total - entrada
 
 
 
-
-parcela = biblioteca.juroComposto(montante, juro, parcelas) / parcelas
+objeto = classe.matematicaFinanceira()
+parcela = objeto.juroComposto(montante, juro, parcelas) / parcelas
 print("Parcela: " + str(round(parcela, 2)))
