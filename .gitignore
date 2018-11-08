@@ -1,5 +1,12 @@
+# Vim
 *.sw*
+
+# Python3
 .venv
+__pycache__/
+
+# Errbot
 config.py
 errbot.log
 data/
+*.gif
