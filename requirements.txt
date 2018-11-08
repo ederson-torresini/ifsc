@@ -1,3 +1,2 @@
 errbot==5.2.0
-pymongo==3.7.2
 python-telegram-bot==10.1.0
