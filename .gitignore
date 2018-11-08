@@ -1,0 +1,5 @@
+*.sw*
+.venv
+config.py
+errbot.log
+data/
