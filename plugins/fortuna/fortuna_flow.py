@@ -8,5 +8,5 @@ class FortunaFlow(BotFlow):
     @botflow
     def adivinha(self, flow: FlowRoot):
         'Adivinhação de autor'
-        first_step = flow.connect('frase', auto_trigger=True)
-        second_step = first_step.connect('autor')
+        pergunta = flow.connect('frase', auto_trigger=True)
+        resposta = pergunta.connect('autor')
