@@ -1,7 +1,9 @@
 from errbot import botflow, FlowRoot, BotFlow
 
+
 class FortunaFlow(BotFlow):
     'Fluxo das mensagens de fortuna'
+
 
     @botflow
     def adivinha(self, flow: FlowRoot):

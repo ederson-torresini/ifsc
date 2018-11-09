@@ -1,8 +1,10 @@
 from errbot import BotPlugin, botcmd, botmatch
 from pymongo import MongoClient
 
+
 class FortunaBot(BotPlugin):
     'Mensagens de fortuna'
+
 
     @botcmd
     def frase(self, msg, args):
@@ -19,6 +21,7 @@ class FortunaBot(BotPlugin):
         msg.ctx['autor'] = frase['autor']
         yield 'A frase é: "' + frase['frase'] + '"'
         yield 'Quem disse isso?'
+
 
     @botmatch(r'^[A-Z].*$', flow_only=True)
     def autor(self, msg, args):
@@ -38,4 +41,4 @@ class FortunaBot(BotPlugin):
                 yield 'Resposta E......xata!'
             else:
                 # Resposta errada
-                yield 'Quase, pequeno gafanhoto: ' + msg.ctx['autor']
+                yield 'Quase, pequeno gafanhoto: ' + certa
