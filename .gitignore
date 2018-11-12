@@ -2,6 +2,7 @@
 *.sw*
 
 # Python3
+venv
 .venv
 __pycache__/
 
