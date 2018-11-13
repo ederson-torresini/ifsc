@@ -41,7 +41,18 @@ class FortunaBot(BotPlugin):
     @botcmd
     def placar(self, msg, args):
         'Mostra o placar o jogador'
-        return 'Pontuação: ' + self.pontuacao(str(msg.frm))
+        pontuacao = self.pontuacao(str(msg.frm))
+        yield 'Pontuação: ' + str(pontuacao)
+        if pontuacao >= 5:
+            yield 'Parabéns! Merece um prêmio especial: uma visita virtual a uma praia!'
+            stream_photo = self.send_stream_request(msg.frm, open('plugins/fortuna/praia.jpg', 'rb'),
+                                                    name='praia.jpg', stream_type='photo')
+            stream_audio = self.send_stream_request(msg.frm, open('plugins/fortuna/praia.mp3', 'rb'),
+                                                    name='praia.mp3', stream_type='audio')
+            stream_video = self.send_stream_request(msg.frm, open('plugins/fortuna/praia.mp4', 'rb'),
+                                                    name='praia.mp4', stream_type='video')
+        else:
+            yield 'Nada mais a declarar...'
 
     def pontuacao(self, jogador, atualizar=None):
         placar = MongoClient().chatbot.placar
@@ -58,4 +69,4 @@ class FortunaBot(BotPlugin):
         # Mostrando o atual resultado para o jogador
         pontos = placar.find_one({'jogador': jogador})
         print(pontos['pontos'])
-        return str(pontos['pontos'])
+        return pontos['pontos']
