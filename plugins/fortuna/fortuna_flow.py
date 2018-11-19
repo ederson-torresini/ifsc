@@ -9,5 +9,3 @@ class FortunaFlow(BotFlow):
         'Adivinhação de autor'
         pergunta = flow.connect('frase', auto_trigger=True)
         resposta = pergunta.connect('autor')
-        placar = resposta.connect('placar',
-                                  predicate=lambda ctx: 'autor' in ctx)

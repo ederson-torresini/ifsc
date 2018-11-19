@@ -19,11 +19,11 @@ class FortunaBot(BotPlugin):
         yield 'Quem disse isso?'
 
     @botmatch(r'^[A-Z].*$', flow_only=True)
-    def autor(self, msg, args):
+    def autor(self, msg, match):
         'Qual o autor da frase?'
         # Testa se as variáveis existem
         try:
-            resposta = args.group(0)
+            resposta = match.group(0)
             certa = msg.ctx['autor']
         except:
             # Mensagem caso haja algum problema com o fluxo
@@ -37,20 +37,22 @@ class FortunaBot(BotPlugin):
             else:
                 # Resposta errada
                 yield 'Quase, pequeno gafanhoto: ' + certa
+        pontos = self.pontuacao(str(msg.frm))
+        yield 'Pontuação: ' + str(pontos)
 
     @botcmd
     def placar(self, msg, args):
-        'Mostra o placar o jogador'
-        pontuacao = self.pontuacao(str(msg.frm))
-        yield 'Pontuação: ' + str(pontuacao)
-        if pontuacao >= 5:
+        'Mostra o placar do jogador'
+        pontos = self.pontuacao(str(msg.frm))
+        yield 'Pontuação: ' + str(pontos)
+        if pontos >= 5:
             yield 'Parabéns! Merece um prêmio especial: uma visita virtual a uma praia!'
-            stream_photo = self.send_stream_request(msg.frm, open('plugins/fortuna/praia.jpg', 'rb'),
-                                                    name='praia.jpg', stream_type='photo')
-            stream_audio = self.send_stream_request(msg.frm, open('plugins/fortuna/praia.mp3', 'rb'),
-                                                    name='praia.mp3', stream_type='audio')
-            stream_video = self.send_stream_request(msg.frm, open('plugins/fortuna/praia.mp4', 'rb'),
-                                                    name='praia.mp4', stream_type='video')
+            self.send_stream_request(msg.frm, open('plugins/fortuna/praia.jpg', 'rb'),
+                                     name='praia.jpg', stream_type='photo')
+            self.send_stream_request(msg.frm, open('plugins/fortuna/praia.mp3', 'rb'),
+                                     name='praia.mp3', stream_type='audio')
+            self.send_stream_request(msg.frm, open('plugins/fortuna/praia.mp4', 'rb'),
+                                     name='praia.mp4', stream_type='video')
         else:
             yield 'Nada mais a declarar...'
 
@@ -68,5 +70,4 @@ class FortunaBot(BotPlugin):
                           {"$inc": {"pontos": atualizar}})
         # Mostrando o atual resultado para o jogador
         pontos = placar.find_one({'jogador': jogador})
-        print(pontos['pontos'])
         return pontos['pontos']

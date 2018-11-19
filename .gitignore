@@ -4,6 +4,9 @@
 # Vim
 *.sw*
 
+# Visual Studio Code
+.vscode/
+
 # Python3
 venv
 .venv
