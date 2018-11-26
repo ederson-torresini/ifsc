@@ -22,8 +22,8 @@ class FortunaBot(BotPlugin):
     def autor(self, msg, match):
         'Qual o autor da frase?'
         # Testa se as variáveis existem
+        resposta = match.string
         try:
-            resposta = match.group(0)
             certa = msg.ctx['autor']
         except:
             # Mensagem caso haja algum problema com o fluxo
