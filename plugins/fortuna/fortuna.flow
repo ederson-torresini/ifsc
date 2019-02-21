@@ -1,9 +1,0 @@
-[Core]
-Name = FortunaFlow
-Module = fortuna_flow
-
-[Python]
-Version = 3
-
-[Documentation]
-Description = Mensagens de fortuna

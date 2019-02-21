@@ -1,9 +1,0 @@
-[Core]
-Name = FortunaBot
-Module = fortuna_bot
-
-[Python]
-Version = 3
-
-[Documentation]
-Description = Mensagens de fortuna
